@@ -9,6 +9,8 @@
     .login
       - if current_user
         = current_user.email
+        = link_to "Home", root_path
+        = link_to "Account", user_path(current_user)
         = link_to "Log out", destroy_user_session_path, method: :delete
       - else
         = link_to "Sign In", new_user_session_path
