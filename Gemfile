@@ -7,6 +7,7 @@ gem 'haml-rails'
 gem 'autoprefixer-rails'
 gem 'devise'
 gem 'erb2haml'
+gem 'devise'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
