@@ -9,4 +9,6 @@ class User < ActiveRecord::Base
 
   has_many :events_as_host, foreign_key: 'host_id', class_name: 'EventSuggestion', dependent: :destroy
   has_many :events_as_invitee, foreign_key: 'invitee_id', class_name: 'EventSuggestion'
+  has_many :event_choices
+  has_many :events, through: :event_choices
 end
