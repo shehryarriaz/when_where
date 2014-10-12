@@ -1,4 +1,4 @@
-  class Invitation < ActiveRecord::Base
+class Invitation < ActiveRecord::Base
   attr_accessible :event_suggestion_id, :invitee_id
 
   belongs_to :event_suggestion
