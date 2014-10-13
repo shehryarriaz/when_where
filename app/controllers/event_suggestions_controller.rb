@@ -5,6 +5,8 @@ class EventSuggestionsController < ApplicationController
   # GET /event_suggestions
   # GET /event_suggestions.json
   def index
+    @events = EventSuggestion.all
+
     @events_as_host = current_user.events_as_host
     @events_as_invitee = current_user.events_as_invitee
     @event_choices = current_user.event_choices rescue nil
