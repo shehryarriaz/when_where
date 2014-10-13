@@ -1,10 +1,12 @@
 class EventSuggestionsController < ApplicationController
+
   before_filter :authenticate_user!
 
   # GET /event_suggestions
   # GET /event_suggestions.json
   def index
-    @event_suggestions = EventSuggestion.all
+    @events_as_host = current_user.events_as_host
+    @events_as_invitee = current_user.events_as_invitee
 
     respond_to do |format|
       format.html # index.html.erb

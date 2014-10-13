@@ -1,0 +1,7 @@
+%table
+  %caption
+    %h2 Events
+    - @events_as_host.each do |event|
+      %tr
+        %td
+          = link_to event.name, event
