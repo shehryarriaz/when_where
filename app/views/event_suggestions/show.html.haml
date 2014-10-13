@@ -1,0 +1,26 @@
+%h2 #{@event_suggestion.name}
+%h2
+  %small Hosted by: #{@event_suggestion.host.name}
+%br
+%p.lead #{@event_suggestion.description}
+%br
+%p
+  %strong Location:
+  #{@event_suggestion.location}
+%p
+  %strong Start Date:
+  #{@event_suggestion.start_date.strftime("%A, %d %b %Y")}
+%p
+  %strong End Date:
+  #{@event_suggestion.end_date.strftime("%A, %d %b %Y")}
+%p
+  %strong When:
+  #{@event_suggestion.time_of_day}
+
+%br
+
+%h3 Invited
+%ul.list-unstyled
+  - @event_suggestion.invitees.each do |invitee|
+    %li #{link_to invitee.name, user_path(invitee)}
+
