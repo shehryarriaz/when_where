@@ -1,7 +1,7 @@
 %h1 All Users
 - @users.each do |user|
   %div
-    %h4 #{user.email}
+    %h4 #{link_to user.email, user_path(user)}
     %p Role: #{user.role}
     %p Member since: #{user.created_at}
     %p Login count: #{user.sign_in_count}
@@ -9,3 +9,4 @@
     %p Current session IP: #{user.current_sign_in_ip}
     %p Last session start: #{user.last_sign_in_at}
     %p Last session IP: #{user.last_sign_in_ip}
+    %br
