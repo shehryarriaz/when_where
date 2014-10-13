@@ -1,7 +1,8 @@
 !!! 5
-%html
+%html{lang: "en"}
   %head
     %meta{charset:"UTF-8"}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
     %title WhenWhere
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
@@ -67,7 +68,8 @@
                 %li.divider
                 %li
                   %a{href:"#"} Separated link
-
-    = yield
-    %p.notice= notice
-    %p.alert= alert
+    -if notice || alert
+      %p.notice= notice
+      %p.alert= alert
+    .container
+      = yield
