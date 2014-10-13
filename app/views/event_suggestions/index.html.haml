@@ -14,11 +14,21 @@
     %h2 Invitations
     %tr
       %th Responded to
-    - if @event_choices.any?
-      - @event_choices.each do |choice|
+    - if @events_responded_to.any?
+      - @events_responded_to.each do |event|
         %tr
           %td
-            = link_to choice.event.event_suggestion.name, choice.event.event_suggestion
+            = link_to event.name, event
     - else
       %tr
-        %td Responded to no events
+        %td No responses
+    %tr
+      %th Pending
+    - if @events_pending.any?
+      - @events_pending.each do |event|
+        %tr
+          %td
+            = link_to event.name, event
+    - else
+      %tr
+        %td No pending events

@@ -6,7 +6,10 @@ class EventSuggestionsController < ApplicationController
   # GET /event_suggestions.json
   def index
     @events_as_host = current_user.events_as_host
+    @events_as_invitee = current_user.events_as_invitee
     @event_choices = current_user.event_choices
+    @events_responded_to = (current_user.event_choices.collect { |choice| choice.event.event_suggestion }).uniq
+    @events_pending = @events_as_invitee - @events_responded_to
 
     respond_to do |format|
       format.html # index.html.erb
