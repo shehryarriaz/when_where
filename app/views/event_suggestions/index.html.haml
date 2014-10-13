@@ -1,7 +1,7 @@
 %table
   %caption
     %h2 Hosting
-    - if @events_as_host.any?
+    - if @events_as_host
       - @events_as_host.each do |event|
         %tr
           %td
@@ -14,7 +14,7 @@
     %h2 Invitations
     %tr
       %th Responded to
-    - if @events_responded_to.any?
+    - if @events_responded_to
       - @events_responded_to.each do |event|
         %tr
           %td
@@ -24,7 +24,7 @@
         %td No responses
     %tr
       %th Pending
-    - if @events_pending.any?
+    - if @events_pending
       - @events_pending.each do |event|
         %tr
           %td
