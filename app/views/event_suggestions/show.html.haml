@@ -25,14 +25,14 @@
 
     %h3 Invited
     %ul.list-unstyled
-      - @event_suggestion.invitees.each do |invitee|
+      - @invitees.each do |invitee|
         - if invitee.name
           %li #{link_to invitee.name, user_path(invitee)}
         - else
           %li #{link_to invitee.email, user_path(invitee)}
 
   .col-xs-12.col-sm-6.col-md-6
-    %table.table.table-bordered
+    %table.table.table-bordered.table-striped
       %caption
         %h2 Availability
         
@@ -41,7 +41,7 @@
             %th Invitees
             - @events.each do |event|
               %th #{event.day_name}
-            - @event_suggestion.invitees.each do |invitee|
+            - @invitees.each do |invitee|
               %tr
                 %td #{invitee.name || invitee.email}
                 - @events.each do |event|
