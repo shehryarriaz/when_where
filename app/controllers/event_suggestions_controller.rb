@@ -23,6 +23,8 @@ class EventSuggestionsController < ApplicationController
   # GET /event_suggestions/1.json
   def show
     @event_suggestion = EventSuggestion.find(params[:id])
+    @invitees = @event_suggestion.invitees
+    @events = @event_suggestion.events
 
     respond_to do |format|
       format.html # show.html.erb
