@@ -45,6 +45,6 @@
               %tr
                 %td #{invitee.name || invitee.email}
                 - @events.each do |event|
-                  %td test
+                  %td #{invitee.events.where(date: event.date).first.day_name rescue nil}
         - else
           %p.lead This event does not have a date range
