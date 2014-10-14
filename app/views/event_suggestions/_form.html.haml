@@ -1,0 +1,34 @@
+= form_for(@event_suggestion) do |f|
+  - if @event_suggestion.errors.any?
+    %h4
+      = pluralize(@event_suggestion.errors.count, "error")
+      prohibited this event from being saved:
+    %ul
+    -@event_suggestion.errors.full_messages.each do |msg|
+      %li= msg
+
+  = f.label :name
+  = f.text_field :name
+  %br
+  = f.label :description
+  = f.text_area :description, rows: 5
+  %br
+  = f.label :location
+  = f.text_field :location
+  %br
+  = f.label :start_date
+  = f.date_select(:start_date, :order => [:day, :month, :year])
+  %br
+  = f.label :end_date
+  = f.date_select(:end_date, :order => [:day, :month, :year])
+  %br
+  = f.label :time_of_day
+  = f.text_field :time_of_day
+  %br
+  = f.label :start_time
+  = f.text_field :start_time
+  %br
+  = f.label :end_time
+  = f.text_field :end_time
+  %br
+  =f.submit "Submit"

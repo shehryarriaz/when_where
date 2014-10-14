@@ -50,10 +50,10 @@ class EventSuggestionsController < ApplicationController
   # POST /event_suggestions.json
   def create
     @event_suggestion = EventSuggestion.new(params[:event_suggestion])
+    @event_suggestion.host = current_user
 
     respond_to do |format|
       if @event_suggestion.save
-        EventSuggestionMailer.registration_confirmation(@event_suggestion).deliver
         format.html { redirect_to @event_suggestion, notice: 'Event suggestion was successfully created.' }
         format.json { render json: @event_suggestion, status: :created, location: @event_suggestion }
       else
