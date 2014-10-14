@@ -3,8 +3,8 @@
 %table.table.table-bordered
   %caption
     %h2 Hosting
-    - if current_user.events_as_host.any?
-      - current_user.events_as_host.each do |event|
+    - if @events_as_host.any?
+      - @events_as_host.each do |event|
         %tr
           %td
             = link_to event.name, event

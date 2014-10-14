@@ -9,9 +9,9 @@ class EventSuggestionsController < ApplicationController
 
     @events_as_host = current_user.events_as_host
     @events_as_invitee = current_user.events_as_invitee
-    @event_choices = current_user.event_choices rescue nil
-    @events_responded_to = (current_user.event_choices.collect { |choice| choice.event.event_suggestion }).uniq rescue nil
-    @events_pending = @events_as_invitee - @events_responded_to rescue nil
+    @event_choices = current_user.event_choices
+    @events_responded_to = (current_user.event_choices.collect { |choice| choice.event.event_suggestion }).uniq
+    @events_pending = @events_as_invitee - @events_responded_to
 
     respond_to do |format|
       format.html # index.html.erb
