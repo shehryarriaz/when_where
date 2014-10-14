@@ -1,6 +1,6 @@
 %h2 #{@event_suggestion.name}
 %h2
-  %small Hosted by: #{@event_suggestion.host.name}
+  %small Hosted by: #{@event_suggestion.host.name || @event_suggestion.host.email}
 %br
 %p.lead #{@event_suggestion.description}
 %br
@@ -22,5 +22,7 @@
 %h3 Invited
 %ul.list-unstyled
   - @event_suggestion.invitees.each do |invitee|
-    %li #{link_to invitee.name, user_path(invitee)}
-
+    - if invitee.name
+      %li #{link_to invitee.name, user_path(invitee)}
+    - else
+      %li #{link_to invitee.email, user_path(invitee)}
