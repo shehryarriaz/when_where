@@ -40,7 +40,7 @@
           %tr
             %th Invitees
             - @events.each do |event|
-              %th #{event.day_name}
+              %th #{event.date.strftime("%A, %d %b")}
             - @invitees.each do |invitee|
               %tr
                 %td #{invitee.name || invitee.email}
