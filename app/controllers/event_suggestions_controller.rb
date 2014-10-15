@@ -37,6 +37,7 @@ class EventSuggestionsController < ApplicationController
   # GET /event_suggestions/new.json
   def new
     @event_suggestion = EventSuggestion.new
+    @events_without_current_user = User.find(:all, :conditions => ["id != ?", current_user.id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -47,6 +48,7 @@ class EventSuggestionsController < ApplicationController
   # GET /event_suggestions/1/edit
   def edit
     @event_suggestion = EventSuggestion.find(params[:id])
+    @events_without_current_user = User.find(:all, :conditions => ["id != ?", current_user.id])
   end
 
   # POST /event_suggestions
@@ -54,6 +56,11 @@ class EventSuggestionsController < ApplicationController
   def create
     @event_suggestion = EventSuggestion.new(params[:event_suggestion])
     @event_suggestion.host = current_user
+    if @event_suggestion.category == 'dinner'
+      @event_suggestion.name = "Dinner with #{@event_suggestion.host.name || @event_suggestion.host.email}"
+    else @event_suggestion.category == 'drinks'
+      @event_suggestion.name = "Drinks with #{@event_suggestion.host.name || @event_suggestion.host.email}"
+    end
 
     respond_to do |format|
       if @event_suggestion.save
@@ -70,6 +77,11 @@ class EventSuggestionsController < ApplicationController
   # PUT /event_suggestions/1.json
   def update
     @event_suggestion = EventSuggestion.find(params[:id])
+    if @event_suggestion.category == 'dinner'
+      @event_suggestion.name = "Dinner with #{@event_suggestion.host.name || @event_suggestion.host.email}"
+    else @event_suggestion.category == 'drinks'
+      @event_suggestion.name = "Drinks with #{@event_suggestion.host.name || @event_suggestion.host.email}"
+    end
 
     respond_to do |format|
       if @event_suggestion.update_attributes(params[:event_suggestion])

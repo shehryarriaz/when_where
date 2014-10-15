@@ -8,6 +8,7 @@ class EventSuggestion < ActiveRecord::Base
 
   
   validates :start_date, presence: :true
+  validates :category, presence: :true
 
   after_create :create_associated_events
 
