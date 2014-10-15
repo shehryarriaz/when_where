@@ -1,6 +1,7 @@
 class EventSuggestionsController < ApplicationController
 
   before_filter :authenticate_user!
+  load_and_authorize_resource
 
   # GET /event_suggestions
   # GET /event_suggestions.json
