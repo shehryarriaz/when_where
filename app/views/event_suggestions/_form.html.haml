@@ -34,6 +34,6 @@
   = hidden_field_tag "event_suggestion[invitee_ids][]"
   - (User.find(:all, :conditions => ["id != ?", current_user.id])).each do |invitee|
     = check_box_tag "event_suggestion[invitee_ids][]", invitee.id, @event_suggestion.invitees.include?(invitee), id: "invitation_ids_#{invitee.id}"
-    = f.label :user_ids, invitee.name, for: "invitation_ids_#{invitee.id}"
+    = f.label :user_ids, invitee.name || invitee.email, for: "invitation_ids_#{invitee.id}"
   %br
   =f.submit "Submit"

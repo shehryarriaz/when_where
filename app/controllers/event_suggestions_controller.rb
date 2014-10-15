@@ -25,6 +25,7 @@ class EventSuggestionsController < ApplicationController
     @event_suggestion = EventSuggestion.find(params[:id])
     @invitees = @event_suggestion.invitees
     @events = @event_suggestion.events
+    @current_user = current_user
 
     respond_to do |format|
       format.html # show.html.erb
