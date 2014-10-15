@@ -14,9 +14,10 @@
     %p
       %strong Start Date:
       #{@event_suggestion.start_date.strftime("%A, %d %b %Y")}
-    %p
-      %strong End Date:
-      #{@event_suggestion.end_date.strftime("%A, %d %b %Y")}
+    - if @event_suggestion.end_date
+      %p
+        %strong End Date:
+        #{@event_suggestion.end_date.strftime("%A, %d %b %Y")}
     %p
       %strong When:
       #{@event_suggestion.time_of_day}
