@@ -59,13 +59,21 @@
         %ul
         - @event_choice.errors.full_messages.each do |msg|
           %li= msg
-      %table.table.table-bordered.table-striped
+      %table.table
+        %tr
+          %th.text-center WHEN ARE YOU FREE?
+          %th.text-center WHO'S COMING?
         - @events.each do |event|
           %tr
             %td
-              = check_box_tag "event_ids[]", event.id, @current_user.events.include?(event), id: "event_ids_#{event.id}"
-              = label_tag :event_ids, event.date.strftime("%a, %d %b"), for: "event_ids_#{event.id}"
+              = check_box_tag "event_ids[]", event.id, @current_user.events.include?(event), id: "event_ids_#{event.id}", style: "display:none"
+              = label_tag :event_ids, event.date.strftime("%a, %d %b"), for: "event_ids_#{event.id}", class: "btn btn-default btn-lg btn-block"
             %td
               - event.event_choices.each do |choice|
-                %p #{choice.user.name || choice.user.email}
-      = submit_tag "Count me in!"
+                - if event.event_choices.length == 1
+                  %p{ style: "display:inline"} Only #{choice.user.name || choice.user.email} is free.
+                - elsif choice == event.event_choices.last
+                  %p{ style: "display:inline"} and #{choice.user.name || choice.user.email} are free.
+                - else
+                  %p{ style: "display:inline"} #{choice.user.name || choice.user.email},
+      = submit_tag "COUNT ME IN!", class: "btn btn-default btn-lg btn-block"
