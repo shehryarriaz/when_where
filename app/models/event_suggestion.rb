@@ -1,5 +1,5 @@
 class EventSuggestion < ActiveRecord::Base
-  attr_accessible :name, :description, :location, :start_date, :end_date, :start_time, :end_time, :time_of_day, :status
+  attr_accessible :name, :description, :location, :start_date, :end_date, :start_time, :end_time, :time_of_day, :status, :invitee_ids
 
   belongs_to :host, class_name: 'User'
   has_many :invitations
