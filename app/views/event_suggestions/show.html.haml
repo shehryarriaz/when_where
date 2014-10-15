@@ -52,19 +52,20 @@
 
   .col-xs-12.col-sm-6.col-md-6
     = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do |f|
-      - if @current_user.errors.any?
+      - if @event_choice.errors.any?
         %h4
-          = pluralize(@current_user.errors.count, "error")
-          prohibited this current_user from being saved:
+          = pluralize(@event_choice.errors.count, "error")
+          prohibited this event_choice from being saved:
         %ul
-        -@current_user.errors.full_messages.each do |msg|
+        - @event_choice.errors.full_messages.each do |msg|
           %li= msg
-
-      - @events.each do |event|
-        = check_box_tag "event_ids[]", event.id, @current_user.events.include?(event), id: "event_ids_#{event.id}"
-        = label_tag :event_ids, event.date.strftime("%a, %d %b"), for: "event_ids_#{event.id}"
-        - event.event_choices.each do |choice|
-          %p #{choice.user.name || choice.user.email}
-        %br  
-      %br
-      =submit_tag "Count me in!"
+      %table.table.table-bordered.table-striped
+        - @events.each do |event|
+          %tr
+            %td
+              = check_box_tag "event_ids[]", event.id, @current_user.events.include?(event), id: "event_ids_#{event.id}"
+              = label_tag :event_ids, event.date.strftime("%a, %d %b"), for: "event_ids_#{event.id}"
+            %td
+              - event.event_choices.each do |choice|
+                %p #{choice.user.name || choice.user.email}
+      = submit_tag "Count me in!"
