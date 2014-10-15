@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :role, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :name, :role, :email, :password, :password_confirmation, :remember_me, :event_ids
   
   has_many :invitations, foreign_key: 'invitee_id'
   has_many :events_as_invitee, through: :invitations, source: :event_suggestion

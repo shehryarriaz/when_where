@@ -41,11 +41,27 @@
           %tr
             %th Invitees
             - @events.each do |event|
-              %th #{event.day_name}
+              %th #{event.date.strftime("%A, %d %b")}
             - @invitees.each do |invitee|
               %tr
                 %td #{invitee.name || invitee.email}
                 - @events.each do |event|
-                  %td test
+                  %td #{invitee.events.where(date: event.date).first.day_name rescue nil}
         - else
           %p.lead This event does not have a date range
+
+  = form_for(@current_user) do |f|
+    - if @current_user.errors.any?
+      %h4
+        = pluralize(@current_user.errors.count, "error")
+        prohibited this current_user from being saved:
+      %ul
+      -@current_user.errors.full_messages.each do |msg|
+        %li= msg
+
+    = hidden_field_tag "user[event_ids][]"
+    - @events.each do |event|
+      = check_box_tag "user[event_ids][]", event.id, @current_user.events.include?(event), id: "event_choice_ids_#{event.id}"
+      = f.label :event_ids, event.date.strftime("%A, %d %b"), for: "event_choices_ids_#{event.id}"
+    %br
+    =f.submit "Submit"
