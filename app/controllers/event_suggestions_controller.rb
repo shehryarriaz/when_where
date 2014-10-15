@@ -19,6 +19,20 @@ class EventSuggestionsController < ApplicationController
     end
   end
 
+  def accept_suggestions
+    @event_suggestion = EventSuggestion.find(params[:id])
+
+    chosen_event_ids = params[:event_ids] || []
+    deselected_event_ids = @event_suggestion.event_ids - chosen_event_ids
+
+    current_user.event_choices.where(event_id: deselected_event_ids).destroy_all
+
+    chosen_event_ids.each do |event_id|
+      EventChoice.find_or_create_by_user_id_and_event_id(current_user.id, event_id)
+    end
+    redirect_to @event_suggestion
+  end
+
   # GET /event_suggestions/1
   # GET /event_suggestions/1.json
   def show
@@ -26,6 +40,7 @@ class EventSuggestionsController < ApplicationController
     @invitees = @event_suggestion.invitees
     @events = @event_suggestion.events
     @current_user = current_user
+    @event_choice = EventChoice.new
 
     respond_to do |format|
       format.html # show.html.erb

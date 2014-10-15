@@ -29,36 +29,48 @@
         - else
           %li #{link_to invitee.email, user_path(invitee)}
 
-  .col-xs-12.col-sm-6.col-md-6
-    %table.table.table-bordered.table-striped
-      %caption
-        %h2 Availability
+  / .col-xs-12.col-sm-6.col-md-6
+  /   %table.table.table-bordered.table-striped
+  /     %caption
+  /       %h2 Availability
         
-        - if @events
+  /       - if @events
+  /         %tr
+  /           %th Invitees
+  /           - @events.each do |event|
+  /             %th #{event.date.strftime("%A, %d %b")}
+  /           - @invitees.each do |invitee|
+  /             %tr
+  /               %td #{invitee.name || invitee.email}
+  /               - @events.each do |event|
+  /                 %td #{invitee.events.where(date: event.date).first.day_name rescue nil}
+  /       - else
+  /         %p.lead This event does not have a date range
+
+  .col-xs-12.col-sm-6.col-md-6
+    = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do |f|
+      - if @event_choice.errors.any?
+        %h4
+          = pluralize(@event_choice.errors.count, "error")
+          prohibited this event_choice from being saved:
+        %ul
+        - @event_choice.errors.full_messages.each do |msg|
+          %li= msg
+      %table.table
+        %tr
+          %th.text-center WHEN ARE YOU FREE?
+          %th.text-center WHO'S COMING?
+        - @events.each do |event|
           %tr
-            %th Invitees
-            - @events.each do |event|
-              %th #{event.date.strftime("%A, %d %b")}
-            - @invitees.each do |invitee|
-              %tr
-                %td #{invitee.name || invitee.email}
-                - @events.each do |event|
-                  %td #{invitee.events.where(date: event.date).first.day_name rescue nil}
-        - else
-          %p.lead This event does not have a date range
-
-  = form_for(@current_user) do |f|
-    - if @current_user.errors.any?
-      %h4
-        = pluralize(@current_user.errors.count, "error")
-        prohibited this current_user from being saved:
-      %ul
-      -@current_user.errors.full_messages.each do |msg|
-        %li= msg
-
-    = hidden_field_tag "user[event_ids][]"
-    - @events.each do |event|
-      = check_box_tag "user[event_ids][]", event.id, @current_user.events.include?(event), id: "event_choice_ids_#{event.id}"
-      = f.label :event_ids, event.date.strftime("%A, %d %b"), for: "event_choices_ids_#{event.id}"
-    %br
-    =f.submit "Submit"
+            %td
+              = check_box_tag "event_ids[]", event.id, @current_user.events.include?(event), id: "event_ids_#{event.id}", style: "display:none"
+              = label_tag :event_ids, event.date.strftime("%a, %d %b"), for: "event_ids_#{event.id}", class: "btn btn-default btn-lg btn-block"
+            %td
+              - event.event_choices.each do |choice|
+                - if event.event_choices.length == 1
+                  %p{ style: "display:inline"} Only #{choice.user.name || choice.user.email} is free.
+                - elsif choice == event.event_choices.last
+                  %p{ style: "display:inline"} and #{choice.user.name || choice.user.email} are free.
+                - else
+                  %p{ style: "display:inline"} #{choice.user.name || choice.user.email},
+      = submit_tag "COUNT ME IN!", class: "btn btn-default btn-lg btn-block"
