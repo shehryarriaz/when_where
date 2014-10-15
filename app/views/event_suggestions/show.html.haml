@@ -32,35 +32,37 @@
         - else
           %li #{link_to invitee.email, user_path(invitee)}
 
-  .col-xs-12.col-sm-6.col-md-6
-    %table.table.table-bordered.table-striped
-      %caption
-        %h2 Availability
+  / .col-xs-12.col-sm-6.col-md-6
+  /   %table.table.table-bordered.table-striped
+  /     %caption
+  /       %h2 Availability
         
-        - if @events
-          %tr
-            %th Invitees
-            - @events.each do |event|
-              %th #{event.date.strftime("%A, %d %b")}
-            - @invitees.each do |invitee|
-              %tr
-                %td #{invitee.name || invitee.email}
-                - @events.each do |event|
-                  %td #{invitee.events.where(date: event.date).first.day_name rescue nil}
-        - else
-          %p.lead This event does not have a date range
+  /       - if @events
+  /         %tr
+  /           %th Invitees
+  /           - @events.each do |event|
+  /             %th #{event.date.strftime("%A, %d %b")}
+  /           - @invitees.each do |invitee|
+  /             %tr
+  /               %td #{invitee.name || invitee.email}
+  /               - @events.each do |event|
+  /                 %td #{invitee.events.where(date: event.date).first.day_name rescue nil}
+  /       - else
+  /         %p.lead This event does not have a date range
 
-  = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do |f|
-    - if @current_user.errors.any?
-      %h4
-        = pluralize(@current_user.errors.count, "error")
-        prohibited this current_user from being saved:
-      %ul
-      -@current_user.errors.full_messages.each do |msg|
-        %li= msg
+  .col-xs-12.col-sm-6.col-md-6
+    = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do |f|
+      - if @current_user.errors.any?
+        %h4
+          = pluralize(@current_user.errors.count, "error")
+          prohibited this current_user from being saved:
+        %ul
+        -@current_user.errors.full_messages.each do |msg|
+          %li= msg
 
-    - @events.each do |event|
-      = check_box_tag "event_ids[]", event.id, @current_user.events.include?(event), id: "event_ids_#{event.id}"
-      = label_tag :event_ids, event.date.strftime("%A, %d %b"), for: "event_ids_#{event.id}"
-    %br
-    =submit_tag "Count me in!"
+      - @events.each do |event|
+        = check_box_tag "event_ids[]", event.id, @current_user.events.include?(event), id: "event_ids_#{event.id}"
+        = label_tag :event_ids, event.date.strftime("%A, %d %b"), for: "event_ids_#{event.id}"
+        %br  
+      %br
+      =submit_tag "Count me in!"
