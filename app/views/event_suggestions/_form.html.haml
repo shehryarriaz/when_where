@@ -7,11 +7,10 @@
     -@event_suggestion.errors.full_messages.each do |msg|
       %li= msg
 
-  = f.label :name
-  = f.text_field :name
-  %br
-  = f.label :description
-  = f.text_area :description, rows: 5
+  = f.radio_button(:category, 'dinner')
+  = f.label(:category_dinner, 'Dinner')
+  = f.radio_button(:category, 'drinks')
+  = f.label(:category_drinks, 'Drinks')
   %br
   = f.label :location
   = f.text_field :location
@@ -22,14 +21,8 @@
   = f.label :end_date
   = f.date_select(:end_date, :order => [:day, :month, :year])
   %br
-  = f.label :time_of_day
-  = f.text_field :time_of_day
-  %br
   = f.label :start_time
   = f.text_field :start_time
-  %br
-  = f.label :end_time
-  = f.text_field :end_time
   %br
   = hidden_field_tag "event_suggestion[invitee_ids][]"
   - (User.find(:all, :conditions => ["id != ?", current_user.id])).each do |invitee|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141012152628) do
+ActiveRecord::Schema.define(:version => 20141015133746) do
 
   create_table "event_choices", :force => true do |t|
     t.integer  "event_id"
@@ -31,11 +31,10 @@ ActiveRecord::Schema.define(:version => 20141012152628) do
     t.integer  "host_id"
     t.date     "start_date"
     t.date     "end_date"
-    t.string   "time_of_day"
     t.time     "start_time"
-    t.time     "end_time"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
+    t.string   "category"
   end
 
   add_index "event_suggestions", ["host_id"], :name => "index_event_suggestions_on_host_id"
