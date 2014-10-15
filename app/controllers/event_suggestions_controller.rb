@@ -40,6 +40,7 @@ class EventSuggestionsController < ApplicationController
     @invitees = @event_suggestion.invitees
     @events = @event_suggestion.events
     @current_user = current_user
+    @event_choice = EventChoice.new
 
     respond_to do |format|
       format.html # show.html.erb
