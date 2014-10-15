@@ -1,32 +1,36 @@
-= form_for(@event_suggestion) do |f|
-  - if @event_suggestion.errors.any?
-    %h4
-      = pluralize(@event_suggestion.errors.count, "error")
-      prohibited this event from being saved:
-    %ul
-    -@event_suggestion.errors.full_messages.each do |msg|
-      %li= msg
+.row
+  .col-xs-12.text-center
+    = form_for(@event_suggestion, html: {class: 'new_event_suggestion form-horizontal', role: 'form'}) do |f|
+      - if @event_suggestion.errors.any?
+        %h4
+          = pluralize(@event_suggestion.errors.count, "error")
+          prohibited this event from being saved:
+        %ul
+        -@event_suggestion.errors.full_messages.each do |msg|
+          %li= msg
+      #category_buttons
+        .col-xs-6
+          = f.radio_button(:category, 'dinner')
+          = f.label(:category_dinner, 'Dinner')
+        .col-xs-6
+          = f.radio_button(:category, 'drinks')
+          = f.label(:category_drinks, 'Drinks')
+      #location_field
+        = f.label :location, class: "col-xs-12"
+        = f.text_field :location
+      #event_date_window
+        = f.label :start_date, class: "col-xs-12"
+        = f.date_select(:start_date, :order => [:day, :month, :year])
+        = f.label :end_date, class: "col-xs-12"
+        = f.date_select(:end_date, :order => [:day, :month, :year])
+      #event_suggestion_start_time
+        = f.label :start_time
+        = f.text_field :start_time
+      #invitees_list
+        = hidden_field_tag "event_suggestion[invitee_ids][]"
+        - @events_without_current_user.each do |invitee|
+          .checkbox
+            = check_box_tag "event_suggestion[invitee_ids][]", invitee.id, @event_suggestion.invitees.include?(invitee), id: "invitation_ids_#{invitee.id}"
+            = f.label :invitee_ids, invitee.name || invitee.email, for: "invitation_ids_#{invitee.id}"
 
-  = f.radio_button(:category, 'dinner')
-  = f.label(:category_dinner, 'Dinner')
-  = f.radio_button(:category, 'drinks')
-  = f.label(:category_drinks, 'Drinks')
-  %br
-  = f.label :location
-  = f.text_field :location
-  %br
-  = f.label :start_date
-  = f.date_select(:start_date, :order => [:day, :month, :year])
-  %br
-  = f.label :end_date
-  = f.date_select(:end_date, :order => [:day, :month, :year])
-  %br
-  = f.label :start_time
-  = f.text_field :start_time
-  %br
-  = hidden_field_tag "event_suggestion[invitee_ids][]"
-  - @events_without_current_user.each do |invitee|
-    = check_box_tag "event_suggestion[invitee_ids][]", invitee.id, @event_suggestion.invitees.include?(invitee), id: "invitation_ids_#{invitee.id}"
-    = f.label :invitee_ids, invitee.name || invitee.email, for: "invitation_ids_#{invitee.id}"
-  %br
-  =f.submit "Submit"
+      =f.submit "Submit", class: 'btn btn-primary'
