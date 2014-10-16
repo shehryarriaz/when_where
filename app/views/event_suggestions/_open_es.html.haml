@@ -18,8 +18,12 @@
     %h3 Invited
     %ul.list-unstyled
       - @invitees.each do |invitee|
-        - if invitee.name
-          %li #{invitee.name || invitee.email}
+        %li #{invitee.name || invitee.email}
+
+    %h3 Where should we go?
+    %ul.list-unstyled
+      - @venues.each do |venue|
+        %li #{venue.name} | #{venue.address}
 
   .col-xs-12.col-sm-6.col-md-6
     = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do |f|

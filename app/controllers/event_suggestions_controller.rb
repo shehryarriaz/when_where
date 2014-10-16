@@ -39,6 +39,7 @@ class EventSuggestionsController < ApplicationController
   def show
     @event_suggestion = EventSuggestion.find(params[:id])
     @invitees = @event_suggestion.invitees
+    @venues = @event_suggestion.venues
     @events = @event_suggestion.events
     @optimal_event = @events.max_by { |e| e.event_choices.length }
     @current_user = current_user
