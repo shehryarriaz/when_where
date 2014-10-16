@@ -28,25 +28,7 @@
           %li #{link_to invitee.name, user_path(invitee)}
         - else
           %li #{link_to invitee.email, user_path(invitee)}
-
-  / .col-xs-12.col-sm-6.col-md-6
-  /   %table.table.table-bordered.table-striped
-  /     %caption
-  /       %h2 Availability
-        
-  /       - if @events
-  /         %tr
-  /           %th Invitees
-  /           - @events.each do |event|
-  /             %th #{event.date.strftime("%A, %d %b")}
-  /           - @invitees.each do |invitee|
-  /             %tr
-  /               %td #{invitee.name || invitee.email}
-  /               - @events.each do |event|
-  /                 %td #{invitee.events.where(date: event.date).first.day_name rescue nil}
-  /       - else
-  /         %p.lead This event does not have a date range
-
+          
   .col-xs-12.col-sm-6.col-md-6
     = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do |f|
       - if @event_choice.errors.any?
