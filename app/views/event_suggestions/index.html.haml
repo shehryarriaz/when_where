@@ -8,6 +8,8 @@
         %tr
           %td
             = link_to event.name, event
+          %td= link_to "Edit", edit_event_suggestion_path(event)
+          %td= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }
     - else
       %tr
         %td Hosting no events
