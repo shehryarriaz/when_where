@@ -110,6 +110,21 @@ class EventSuggestionsController < ApplicationController
     end
   end
 
+  def finalise
+    @event_suggestion = EventSuggestion.find(params[:id])
+    @event_suggestion.status = "closed"
+
+    respond_to do |format|
+      if @event_suggestion.update_attributes(params[:event_suggestion])
+        format.html { redirect_to @event_suggestion, notice: 'This event has now been finalised. Invitees can no longer RSVP to the event.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "show" }
+        format.json { render json: @event_suggestion.errors, status: :unprocessable_entity, notice: 'Sorry this event could not be finalised. Please try again.' }
+      end
+    end
+  end
+
   # DELETE /event_suggestions/1
   # DELETE /event_suggestions/1.json
   def destroy
