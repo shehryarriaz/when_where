@@ -5,7 +5,8 @@ class EventSuggestion < ActiveRecord::Base
   has_many :invitations
   has_many :invitees, through: :invitations
   has_many :events
-
+  has_many :event_venues
+  has_many :venues, through: :event_venues
   
   validates :start_date, presence: :true
   validates :category, presence: :true

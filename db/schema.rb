@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141015133746) do
+ActiveRecord::Schema.define(:version => 20141016215721) do
 
   create_table "event_choices", :force => true do |t|
     t.integer  "event_id"
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(:version => 20141015133746) do
   end
 
   add_index "event_suggestions", ["host_id"], :name => "index_event_suggestions_on_host_id"
+
+  create_table "event_venues", :force => true do |t|
+    t.integer  "event_suggestion_id"
+    t.integer  "venue_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "event_venues", ["event_suggestion_id"], :name => "index_event_venues_on_event_suggestion_id"
+  add_index "event_venues", ["venue_id"], :name => "index_event_venues_on_venue_id"
 
   create_table "events", :force => true do |t|
     t.integer  "event_suggestion_id"
@@ -77,5 +87,12 @@ ActiveRecord::Schema.define(:version => 20141015133746) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "venues", :force => true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end
