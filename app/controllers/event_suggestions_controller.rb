@@ -43,6 +43,9 @@ class EventSuggestionsController < ApplicationController
     @current_user = current_user
     @event_choice = EventChoice.new
 
+    @popular_date = @events.map { |event| event.event_choices }.max_by {|x| x.length}.first.event.date
+    @chosen_event = @events.where(date: @popular_date).first
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @event_suggestion }
