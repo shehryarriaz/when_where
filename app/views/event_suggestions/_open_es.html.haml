@@ -11,8 +11,6 @@
       %span{ style: "color:slategray; font-weight: bold;"} #{@event_suggestion.start_date.strftime("%A, %d %b %Y")}
       and
       %span{ style: "color:slategray; font-weight: bold;"} #{@event_suggestion.end_date.strftime("%A, %d %b")}.
-
-    %br
     =link_to 'Finalise event', '#', class: 'btn btn-primary btn-lg'
 
     %h3 Invited
@@ -24,6 +22,18 @@
     %ul.list-unstyled
       - @venues.each do |venue|
         %li #{venue.name} | #{venue.address}
+
+    = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do |f|
+      - if @event_venue.errors.any?
+        %h4
+          = pluralize(@event_venue.errors.count, "error")
+          prohibited this event_venue from being saved:
+        %ul
+        - @event_venue.errors.full_messages.each do |msg|
+          %li= msg
+
+        = f.text_field :location, class: 'form-control', placeholder: 'The best venue ever'
+    = submit_tag "Add a venue", class: "btn btn-primary btn-lg"
 
   .col-xs-12.col-sm-6.col-md-6
     = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do |f|
@@ -51,4 +61,6 @@
                   %p{ style: "display:inline"} and #{choice.user.name || choice.user.email} are free.
                 - else
                   %p{ style: "display:inline"} #{choice.user.name || choice.user.email},
-      = submit_tag "COUNT ME IN", class: "btn btn-primary btn-lg btn-block"
+        %tr
+          %td{ colspan: "2" }
+            = submit_tag "COUNT ME IN", class: "btn btn-primary btn-lg btn-block"

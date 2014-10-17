@@ -44,6 +44,7 @@ class EventSuggestionsController < ApplicationController
     @optimal_event = @events.max_by { |e| e.event_choices.length }
     @current_user = current_user
     @event_choice = EventChoice.new
+    @event_venue = EventVenue.new
 
     respond_to do |format|
       format.html # show.html.erb
