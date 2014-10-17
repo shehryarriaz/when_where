@@ -20,6 +20,15 @@ class EventSuggestionsController < ApplicationController
     end
   end
 
+  def add_venue
+    @event_suggestion = EventSuggestion.find(params[:id])
+    name = params[:name]
+    address = params[:address]
+    Venue.find_or_create_by_name_and_address(name, address)
+
+    redirect_to @event_suggestion
+  end
+
   def accept_suggestions
     @event_suggestion = EventSuggestion.find(params[:id])
 
