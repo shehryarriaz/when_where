@@ -43,9 +43,10 @@ class EventSuggestionsController < ApplicationController
     @optimal_event = @events.max_by { |e| e.event_choices.length }
     @current_user = current_user
     @event_choice = EventChoice.new
-
-    @popular_date = @events.map { |event| event.event_choices }.max_by {|x| x.length}.first.event.date
-    @chosen_event = @events.where(date: @popular_date).first
+    
+    max_response_count = @events.map {|e| e.event_choices.length}.max
+    @popular_events = @events.select{ |e| e.event_choices.length == max_response_count }
+    # @chosen_event = @events.where(date: @event_suggestion.date).first
 
     respond_to do |format|
       format.html # show.html.erb
