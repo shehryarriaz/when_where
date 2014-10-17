@@ -1,3 +1,9 @@
+- if @event_suggestion.errors.any?
+  %h2 #{pluralize(@event_suggestion.errors.count, "error")} prohibited this event from being saved:
+  %ul
+    - @event_suggestion.errors.full_messages.each do |msg|
+      %li= msg
+
 .row
   .col-xs-12.col-sm-6.col-md-6
     %h2 Free for #{@event_suggestion.category}?
