@@ -6,7 +6,7 @@
     %br
     %p.lead #{@event_suggestion.description}
 
-    %h3.text-success Status: Finalised
+    %h3.text-success Status: #{@event_suggestion.status}
     %br
     %p
       %strong Location:
@@ -17,11 +17,7 @@
 
     %h3 Who's coming
     %ul.list-unstyled
-      - @chosen_event.users.each do |user|
-        - if user.name
-          %li #{link_to user.name, user_path(user)}
-        - else
-          %li #{link_to user.email, user_path(user)}
+      
 
     %h3 Invited
     %ul.list-unstyled

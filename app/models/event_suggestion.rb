@@ -1,5 +1,5 @@
 class EventSuggestion < ActiveRecord::Base
-  attr_accessible :name, :description, :location, :start_date, :end_date, :start_time, :status, :invitee_ids, :category
+  attr_accessible :name, :description, :location, :start_date, :end_date, :start_time, :invitee_ids, :category
 
   belongs_to :host, class_name: 'User'
   has_many :invitations
@@ -11,11 +11,10 @@ class EventSuggestion < ActiveRecord::Base
   validates :category, presence: :true
 
   after_create :create_associated_events
-  # before_save :check_event_has_location, if: :status_is_closed?
-  # before_save :check_event_has_start_time, if: :status_is_closed?
+  validate :check_event_has_location_if_finalised
+  validate :check_event_has_start_time_if_finalised
 
   private
-
   def create_associated_events
     if !end_date
       Event.create(date: start_date, event_suggestion_id: id)
@@ -26,15 +25,18 @@ class EventSuggestion < ActiveRecord::Base
     end
   end
 
-  # def status_is_closed?
-  #   status == "closed"
-  # end
-
-  # def check_event_has_location
-  #   errors.add(:base, "Sorry, this event must have a location") unless location && location != ""
-  # end
-  # def check_event_has_start_time
-  #   errors.add(:base, "Sorry, this event must have a start time") unless start_time
-  # end
+  private
+  def check_event_has_location_if_finalised
+    if status == 'closed'
+      errors.add(:base, "Sorry, this event must have a location") unless location.present?
+    end
+  end
+  
+  private
+  def check_event_has_start_time_if_finalised
+    if status == 'closed'
+      errors.add(:base, "Sorry, this event must have a start time") unless start_time
+    end
+  end
 
 end

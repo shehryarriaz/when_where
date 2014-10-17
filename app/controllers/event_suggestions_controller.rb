@@ -120,11 +120,11 @@ class EventSuggestionsController < ApplicationController
     @event_suggestion.status = "closed"
 
     respond_to do |format|
-      if @event_suggestion.update_attributes(params[:event_suggestion])
+      if @event_suggestion.save && @event_suggestion.update_attributes(params[:event_suggestion])
         format.html { redirect_to @event_suggestion, notice: 'This event has now been finalised. Invitees can no longer RSVP to the event.' }
         format.json { head :no_content }
       else
-        format.html { render action: "show" }
+        format.html { redirect_to @event_suggestion, notice: 'Please make sure your event has a location, date and time.'}
         format.json { render json: @event_suggestion.errors, status: :unprocessable_entity, notice: 'Sorry this event could not be finalised. Please try again.' }
       end
     end
@@ -142,3 +142,4 @@ class EventSuggestionsController < ApplicationController
     end
   end
 end
+
