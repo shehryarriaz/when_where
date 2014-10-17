@@ -41,10 +41,12 @@ class EventSuggestionsController < ApplicationController
     @invitees = @event_suggestion.invitees
     @venues = @event_suggestion.venues
     @events = @event_suggestion.events
-    @optimal_event = @events.max_by { |e| e.event_choices.length }
     @current_user = current_user
     @event_choice = EventChoice.new
     @event_venue = EventVenue.new
+    max_response_count = @events.map {|e| e.event_choices.length}.max
+    @popular_events = @events.select{ |e| e.event_choices.length == max_response_count }
+    # @chosen_event = @events.where(date: @event_suggestion.date).first
 
     respond_to do |format|
       format.html # show.html.erb
@@ -109,6 +111,21 @@ class EventSuggestionsController < ApplicationController
       else
         format.html { render action: "edit" }
         format.json { render json: @event_suggestion.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def finalise
+    @event_suggestion = EventSuggestion.find(params[:id])
+    @event_suggestion.status = "closed"
+
+    respond_to do |format|
+      if @event_suggestion.update_attributes(params[:event_suggestion])
+        format.html { redirect_to @event_suggestion, notice: 'This event has now been finalised. Invitees can no longer RSVP to the event.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "show" }
+        format.json { render json: @event_suggestion.errors, status: :unprocessable_entity, notice: 'Sorry this event could not be finalised. Please try again.' }
       end
     end
   end

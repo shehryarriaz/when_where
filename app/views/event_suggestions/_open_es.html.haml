@@ -2,7 +2,18 @@
   .col-xs-12.col-sm-6.col-md-6
     %h2 Free for #{@event_suggestion.category}?
     %h2
-      %small It's probably going to be on #{@optimal_event.date.strftime("%A, %d %b")}.
+      %small 
+        Likely dates: 
+        %br
+        - @popular_events.each do |event|
+          - if event.users.include? @event_suggestion.host
+            %span{ style: "color:maroon; font-weight: bold;"} 
+              = event.date.strftime("%A, %d %b") 
+            %br
+          - else
+            %span{ style: "color:midnightblue; font-weight: bold;"} 
+              = event.date.strftime("%A, %d %b") 
+            %br
     %p.lead
       %span{ style: "color:maroon; font-weight: bold;"} #{@event_suggestion.host.name || @event_suggestion.host.email}
       is hosting 
@@ -11,7 +22,10 @@
       %span{ style: "color:slategray; font-weight: bold;"} #{@event_suggestion.start_date.strftime("%A, %d %b %Y")}
       and
       %span{ style: "color:slategray; font-weight: bold;"} #{@event_suggestion.end_date.strftime("%A, %d %b")}.
-    =link_to 'Finalise event', '#', class: 'btn btn-primary btn-lg'
+
+    %br
+   
+    = link_to 'Finalise event', finalise_event_suggestion_path(@event_suggestion), method: :put, class: 'btn btn-primary', data: { confirm: 'Location, date and time all set?' } if can? :update, @event_suggestion
 
     %h3 Invited
     %ul.list-unstyled
@@ -57,6 +71,4 @@
                   %p{ style: "display:inline"} and #{choice.user.name || choice.user.email} are free.
                 - else
                   %p{ style: "display:inline"} #{choice.user.name || choice.user.email},
-        %tr
-          %td{ colspan: "2" }
-            = submit_tag "COUNT ME IN", class: "btn btn-primary btn-lg btn-block"
+      = submit_tag "COUNT ME IN", class: "btn btn-primary btn-lg btn-block"

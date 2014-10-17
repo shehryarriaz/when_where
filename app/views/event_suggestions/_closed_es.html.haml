@@ -1,0 +1,32 @@
+.row
+  .col-xs-12.col-sm-6.col-md-6
+    %h2 #{@event_suggestion.name}
+    %h2
+      %small Hosted by: #{@event_suggestion.host.name || @event_suggestion.host.email}
+    %br
+    %p.lead #{@event_suggestion.description}
+
+    %h3.text-success Status: Finalised
+    %br
+    %p
+      %strong Location:
+      #{@event_suggestion.try :location}
+    %p
+      %strong Time:
+      #{@event_suggestion.try :start_time}
+
+    %h3 Who's coming
+    %ul.list-unstyled
+      - @chosen_event.users.each do |user|
+        - if user.name
+          %li #{link_to user.name, user_path(user)}
+        - else
+          %li #{link_to user.email, user_path(user)}
+
+    %h3 Invited
+    %ul.list-unstyled
+      - @event_suggestion.invitees.each do |invitee|
+        - if invitee.name
+          %li #{link_to invitee.name, user_path(invitee)}
+        - else
+          %li #{link_to invitee.email, user_path(invitee)}

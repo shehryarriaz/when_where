@@ -3,7 +3,7 @@
   %head
     %meta{charset:"UTF-8"}
     %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
-    %title WhenWhere
+    %title DinnerOrDrinks
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
@@ -16,31 +16,16 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to "WhenWhere", root_path, class: "navbar-brand"
+          = link_to "dinnerordrinks", root_path, class: "navbar-brand"
 
         .collapse.navbar-collapse#bs-example-navbar-collapse-1
           %ul.nav.navbar-nav
             %li
               = link_to "All users", users_path
             %li
+              = link_to "My events", root_path
+            %li
               = link_to "Create event", new_event_suggestion_path
-            %li.dropdown
-              %a{href:"#", class:"dropdown-toggle", "data-toggle" => "dropdown"}
-                Dropdown
-                %span.caret
-              %ul.dropdown-menu{role:"menu"}
-                %li
-                  %a{href:"#"} Action
-                %li
-                  %a{href:"#"} Another action
-                %li
-                  %a{href:"#"} Something else here
-                %li.divider
-                %li
-                  %a{href:"#"} Separated link
-                %li.divider
-                %li
-                  %a{href:"#"} One more separated link
           %ul.nav.navbar-nav.navbar-right
             - if current_user
               %li #{link_to current_user.email, user_path(current_user)}
@@ -48,20 +33,7 @@
             - else
               %li #{link_to "Sign In", new_user_session_path}
               %li #{link_to "Register", new_user_registration_path}
-            %li.dropdown
-              %a{href:"#", class:"dropdown-toggle", "data-toggle" => "dropdown"}
-                Dropdown
-                %span.caret
-              %ul.dropdown-menu{role:"menu"}
-                %li
-                  %a{href:"#"} Action
-                %li
-                  %a{href:"#"} Another action
-                %li
-                  %a{href:"#"} Something else here
-                %li.divider
-                %li
-                  %a{href:"#"} Separated link
+            
     -if notice || alert
       %p.notice= notice
       %p.alert= alert

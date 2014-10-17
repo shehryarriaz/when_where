@@ -4,7 +4,8 @@ class EventSuggestion < ActiveRecord::Base
   belongs_to :host, class_name: 'User'
   has_many :invitations
   has_many :invitees, through: :invitations
-  has_many :events
+  
+  has_many :events, dependent: :destroy
   has_many :event_venues
   has_many :venues, through: :event_venues
   
@@ -12,6 +13,8 @@ class EventSuggestion < ActiveRecord::Base
   validates :category, presence: :true
 
   after_create :create_associated_events
+  # before_save :check_event_has_location, if: :status_is_closed?
+  # before_save :check_event_has_start_time, if: :status_is_closed?
 
   private
 
@@ -24,5 +27,16 @@ class EventSuggestion < ActiveRecord::Base
       end
     end
   end
+
+  # def status_is_closed?
+  #   status == "closed"
+  # end
+
+  # def check_event_has_location
+  #   errors.add(:base, "Sorry, this event must have a location") unless location && location != ""
+  # end
+  # def check_event_has_start_time
+  #   errors.add(:base, "Sorry, this event must have a start time") unless start_time
+  # end
 
 end

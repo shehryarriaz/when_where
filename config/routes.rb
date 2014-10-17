@@ -5,6 +5,7 @@ WhenWhere::Application.routes.draw do
   resources :event_suggestions do
     member do
       post :accept_suggestions
+      put :finalise
     end
   end
 end
