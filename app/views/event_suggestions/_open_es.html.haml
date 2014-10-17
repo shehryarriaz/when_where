@@ -23,20 +23,16 @@
       - @venues.each do |venue|
         %li #{venue.name} | #{venue.address}
 
-    = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do |f|
-      - if @event_venue.errors.any?
-        %h4
-          = pluralize(@event_venue.errors.count, "error")
-          prohibited this event_venue from being saved:
-        %ul
-        - @event_venue.errors.full_messages.each do |msg|
-          %li= msg
-
-        = f.text_field :location, class: 'form-control', placeholder: 'The best venue ever'
-    = submit_tag "Add a venue", class: "btn btn-primary btn-lg"
+    = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion), role: "form") do
+      .form-group
+        = text_field_tag :name, nil, class: "form-control", placeholder: "Venue name"
+      .form-group
+        = text_field_tag :address, nil, class: "form-control", placeholder: "Address"
+      = submit_tag "Add a venue", class: "btn btn-primary btn-lg"
+    %br
 
   .col-xs-12.col-sm-6.col-md-6
-    = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do |f|
+    = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do
       - if @event_choice.errors.any?
         %h4
           = pluralize(@event_choice.errors.count, "error")
