@@ -40,6 +40,7 @@ class EventSuggestionsController < ApplicationController
     @event_suggestion = EventSuggestion.find(params[:id])
     @invitees = @event_suggestion.invitees
     @events = @event_suggestion.events
+    @optimal_event = @events.max_by { |e| e.event_choices.length }
     @current_user = current_user
     @event_choice = EventChoice.new
 

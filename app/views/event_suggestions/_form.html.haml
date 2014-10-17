@@ -41,4 +41,4 @@
             = check_box_tag "event_suggestion[invitee_ids][]", invitee.id, @event_suggestion.invitees.include?(invitee), id: "invitation_ids_#{invitee.id}", style: 'display:none'
             = f.label :invitee_ids, invitee.name || invitee.email, for: "invitation_ids_#{invitee.id}", class: 'btn btn-default btn-lg'
       .row
-        =f.submit "BOOM", class: 'btn btn-primary'
+        =f.submit "BOOM", class: 'btn btn-primary btn-lg btn-block'
