@@ -10,10 +10,10 @@
     %br
     %p
       %strong Location:
-      #{@event_suggestion.try :location}
+      #{@event_suggestion.location}
     %p
       %strong Time:
-      #{@event_suggestion.try :start_time}
+      #{@event_suggestion.start_time.strftime("%I:%M %p")}
 
     %h3 Who's coming
     %ul.list-unstyled

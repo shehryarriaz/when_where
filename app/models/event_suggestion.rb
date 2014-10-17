@@ -1,5 +1,5 @@
 class EventSuggestion < ActiveRecord::Base
-  attr_accessible :name, :description, :location, :start_date, :end_date, :start_time, :invitee_ids, :category
+  attr_accessible :name, :description, :location, :start_date, :end_date, :start_time, :invitee_ids, :category, :date
 
   belongs_to :host, class_name: 'User'
   has_many :invitations
@@ -31,7 +31,7 @@ class EventSuggestion < ActiveRecord::Base
       errors.add(:base, "Sorry, this event must have a location") unless location.present?
     end
   end
-  
+
   private
   def check_event_has_start_time_if_finalised
     if status == 'closed'
