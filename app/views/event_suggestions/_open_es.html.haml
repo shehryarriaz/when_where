@@ -38,12 +38,12 @@
         %li #{venue.name} | #{venue.address}
 
     = form_tag(add_venue_event_suggestion_path(@event_suggestion), role: "form") do
-      - if @event_venue.errors.any?
+      - if @venue.errors.any?
         %h4
-          = pluralize(@event_venue.errors.count, "error")
-          prohibited this event_venue from being saved:
+          = pluralize(@venue.errors.count, "error")
+          prohibited this venue from being saved:
         %ul
-        - @event_venue.errors.full_messages.each do |msg|
+        - @venue.errors.full_messages.each do |msg|
           %li= msg
       .form-group
         = text_field_tag :name, nil, class: "form-control", placeholder: "Venue name"

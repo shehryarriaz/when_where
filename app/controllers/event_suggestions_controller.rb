@@ -24,8 +24,9 @@ class EventSuggestionsController < ApplicationController
     @event_suggestion = EventSuggestion.find(params[:id])
     name = params[:name]
     address = params[:address]
-    Venue.find_or_create_by_name_and_address(name, address)
-
+    venue = Venue.find_or_create_by_name_and_address(name, address)
+    EventVenue.find_or_create_by_event_suggestion_id_and_venue_id(@event_suggestion.id, venue.id)
+    
     redirect_to @event_suggestion
   end
 
@@ -52,6 +53,7 @@ class EventSuggestionsController < ApplicationController
     @events = @event_suggestion.events
     @current_user = current_user
     @event_choice = EventChoice.new
+    @venue = Venue.new
     @event_venue = EventVenue.new
     max_response_count = @events.map {|e| e.event_choices.length}.max
     @popular_events = @events.select{ |e| e.event_choices.length == max_response_count }
