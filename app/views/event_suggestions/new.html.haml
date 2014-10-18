@@ -14,10 +14,10 @@
         %h3 I WANT TO HAVE
         .col-xs-6
           = f.radio_button(:category, 'dinner', style: 'display:none')
-          = f.label(:category_dinner, 'Dinner', class: 'btn btn-default btn-block btn-lg')
+          = f.label(:category_dinner, 'Dinner', class: 'btn btn-default btn-block btn-lg', id:'dinner_cat_button')
         .col-xs-6
           = f.radio_button(:category, 'drinks', style: 'display:none')
-          = f.label(:category_drinks, 'Drinks', class: 'btn btn-default btn-block btn-lg')
+          = f.label(:category_drinks, 'Drinks', class: 'btn btn-default btn-block btn-lg', id:'drinks_cat_button')
       .row.form-group
         %h3 AT
         = f.text_field :location, class: 'form-control', placeholder: 'The best venue ever'
