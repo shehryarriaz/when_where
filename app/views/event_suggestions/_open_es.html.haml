@@ -2,7 +2,7 @@
   .col-xs-12.col-sm-6.col-md-6
     %h2 Free for #{@event_suggestion.category}?
     %h2
-      %small 
+      %small
         Likely dates: 
         %br
         - @popular_events.each do |event|
@@ -35,7 +35,8 @@
     %h3 Where should we go?
     %ul.list-unstyled
       - @venues.each do |venue|
-        %li #{venue.name} | #{venue.address}
+        %li
+        = link_to venue.name, event_venue_path(venue)
 
     = form_tag(@event_venue, role: "form") do |f|
       - if @venue.errors.any?
