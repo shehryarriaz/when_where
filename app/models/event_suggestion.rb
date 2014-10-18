@@ -9,8 +9,8 @@ class EventSuggestion < ActiveRecord::Base
   has_many :event_venues
   has_many :venues, through: :event_venues
   
-  validates :start_date, presence: :true
-  validates :category, presence: :true
+  validates :start_date, presence: {message: "You need to select at least a start date."}
+  validates :category, presence: {message: "You need to choose either dinner or drinks!"}
 
   after_create :create_associated_events
   validate :check_event_has_location_if_finalised

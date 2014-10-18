@@ -43,7 +43,7 @@
       .row
         %h3 WITH
         = hidden_field_tag "event_suggestion[invitee_ids][]"
-        - @events_without_current_user.each do |invitee|
+        - @users_without_current_user.each do |invitee|
           .checkbox-inline
             = check_box_tag "event_suggestion[invitee_ids][]", invitee.id, @event_suggestion.invitees.include?(invitee), id: "invitation_ids_#{invitee.id}", style: 'display:none'
             = f.label :invitee_ids, invitee.name || invitee.email, for: "invitation_ids_#{invitee.id}", class: 'btn btn-default btn-lg'
