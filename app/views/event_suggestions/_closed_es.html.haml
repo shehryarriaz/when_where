@@ -16,8 +16,15 @@
       #{@event_suggestion.start_time.strftime("%I:%M %p")}
 
     %h3 Who's coming
-    %ul.list-unstyled
-      
+    -if @chosen_event
+      %ul.list-unstyled
+        - @chosen_event.users.each do |user|
+          - if user.name
+            %li #{link_to user.name, user_path(user)}
+          - else
+            %li #{link_to user.email, user_path(user)}
+    - else
+      %p Convince more people next time!
 
     %h3 Invited
     %ul.list-unstyled

@@ -4,6 +4,10 @@
 
 form.new_event_suggestion div, form.edit_event_suggestion div {
   margin: 10px 0;
+  input[type="radio"]:checked+label, input[type="checkbox"]:checked+label{
+    background-color: rgb(66,139,202);
+    color: white;
+  }
 }
 
 form#new_user, form#edit_user{

@@ -1,6 +1,6 @@
 .row
   .col-md-2
-  .col-xs-12.col-md-8.text-center
+  .col-xs-12.col-md-8
     %h2 Edit your event
     = form_for(@event_suggestion, html: {role: 'form'}) do |f|
       - if @event_suggestion.errors.any?
@@ -11,6 +11,8 @@
         -@event_suggestion.errors.full_messages.each do |msg|
           %li= msg
       .row
+        = f.label :name
+        = f.text_field :name, class: 'form-control'
         %h4 You're inviting people for
         .col-xs-6
           = f.radio_button(:category, 'dinner', style: 'display:none')
@@ -23,15 +25,19 @@
         = f.text_field :location, class: 'form-control', placeholder: 'The best venue ever'
       .row
         %h3 SOMETIME BETWEEN
-        .col-xs-12.col-sm-5.form-group
+        .col-xs-12.col-sm-6
           = f.label :start_date
           %br
           = f.date_select(:start_date, :order => [:day, :month, :year])
-        .col-xs-12.col-sm-5
+          %br
           = f.label :end_date
           %br
           = f.date_select(:end_date, :order => [:day, :month, :year])
-        .col-xs-12.col-sm-2
+          %br
+        .col-xs-12.col-sm-6.form-group
+          =f.label :date
+          = f.date_select(:start_date, :order => [:day, :month, :year])
+        .col-xs-12.col-sm-6
           = f.label :start_time, 'At around'
           = f.text_field :start_time, class: 'form-control', placeholder: '7:00 pm'
       .row
@@ -42,4 +48,4 @@
             = check_box_tag "event_suggestion[invitee_ids][]", invitee.id, @event_suggestion.invitees.include?(invitee), id: "invitation_ids_#{invitee.id}", style: 'display:none'
             = f.label :invitee_ids, invitee.name || invitee.email, for: "invitation_ids_#{invitee.id}", class: 'btn btn-default btn-lg'
       .row
-        =f.submit "BOOM", class: 'btn btn-primary btn-lg btn-block'
+        =f.submit "UPDATE", class: 'btn btn-primary btn-lg btn-block'
