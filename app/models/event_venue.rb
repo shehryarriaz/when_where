@@ -3,4 +3,7 @@ class EventVenue < ActiveRecord::Base
 
   belongs_to :event_suggestion
   belongs_to :venue
+
+  validates :event_suggestion_id, presence: :true
+  validates :venue_id, presence: :true
 end

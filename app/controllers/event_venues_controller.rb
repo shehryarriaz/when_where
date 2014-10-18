@@ -1,5 +1,14 @@
 class EventVenuesController < ApplicationController
 
+  def show
+    @event_venue = EventVenue.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @event_venue }
+    end
+  end
+
   def create
     @event_suggestion = EventSuggestion.find(params[:event_suggestion_id])
     @name = params[:name]
@@ -12,7 +21,7 @@ class EventVenuesController < ApplicationController
         format.html { redirect_to @event_suggestion, notice: 'Venue added.' }
         format.json { render json: @venue }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to @event_suggestion, alert: 'Venue could not be added.' }
         format.json { render json: @venue.errors, status: :unprocessable_entity }
       end
     end
