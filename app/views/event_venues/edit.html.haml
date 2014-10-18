@@ -1,0 +1,16 @@
+.row
+  .col-xs-12.col-sm-6.col-md-6
+    = form_for(@event_venue, role: "form") do |f|
+      - if @venue.errors.any?
+        %h4
+          = pluralize(@venue.errors.count, "error")
+          prohibited this venue from being saved:
+        %ul
+        - @venue.errors.full_messages.each do |msg|
+          %li= msg
+      .form-group
+        = text_field_tag :name, nil, class: "form-control", placeholder: "Venue name", value: @venue_name
+      .form-group
+        = text_field_tag :address, nil, class: "form-control", placeholder: "Address", value: @venue_address
+      = submit_tag "Update", class: "btn btn-primary btn-lg"
+    = link_to "Back", @event_venue, class: "btn btn-default btn-lg"

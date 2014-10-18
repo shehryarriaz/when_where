@@ -39,7 +39,7 @@ class EventSuggestionsController < ApplicationController
   def show
     @event_suggestion = EventSuggestion.find(params[:id])
     @invitees = @event_suggestion.invitees
-    @venues = @event_suggestion.venues
+    @event_venues = @event_suggestion.event_venues
     @events = @event_suggestion.events
     @current_user = current_user
     @event_choice = EventChoice.new

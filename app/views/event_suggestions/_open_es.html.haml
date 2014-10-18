@@ -34,11 +34,11 @@
 
     %h3 Where should we go?
     %ul.list-unstyled
-      - @venues.each do |venue|
+      - @event_venues.each do |venue|
         %li
-        = link_to venue.name, event_venue_path(venue)
+        = link_to venue.venue.name, event_venue_path(venue), class: "btn btn-default btn-lg"
 
-    = form_tag(@event_venue, role: "form") do |f|
+    = form_for(@event_venue, role: "form") do |f|
       - if @venue.errors.any?
         %h4
           = pluralize(@venue.errors.count, "error")
