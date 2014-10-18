@@ -1,3 +1,8 @@
-%h1 Your account
-%h3 #{@user.email}
+%h1 Your account details
+%h3 #{@user.name}
+
+%p
+  %strong Email:
+  = @user.email
+
 = link_to "Edit account", edit_user_registration_path
