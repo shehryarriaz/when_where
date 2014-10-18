@@ -1,0 +1,2 @@
+module EventVenuesHelper
+end

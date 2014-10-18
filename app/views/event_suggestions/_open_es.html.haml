@@ -43,7 +43,7 @@
       - @venues.each do |venue|
         %li #{venue.name} | #{venue.address}
 
-    = form_tag(add_venue_event_suggestion_path(@event_suggestion), role: "form") do
+    = form_tag(@event_venue, role: "form") do |f|
       - if @venue.errors.any?
         %h4
           = pluralize(@venue.errors.count, "error")
@@ -51,6 +51,7 @@
         %ul
         - @venue.errors.full_messages.each do |msg|
           %li= msg
+      = hidden_field_tag :event_suggestion_id, @event_suggestion.id
       .form-group
         = text_field_tag :name, nil, class: "form-control", placeholder: "Venue name"
       .form-group
