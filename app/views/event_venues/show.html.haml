@@ -4,6 +4,7 @@
     %h2
       %small
         #{@venue.address}
+    %p.lead #{@event_venue.description}
     = link_to "Edit", edit_event_venue_path(@event_venue), class: "btn btn-default btn-lg"
     = link_to 'Delete', @event_venue, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-lg"
     = link_to "Back", @event_suggestion, class: "btn btn-default btn-lg"

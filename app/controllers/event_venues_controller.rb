@@ -41,11 +41,12 @@ class EventVenuesController < ApplicationController
     @event_suggestion = @event_venue.event_suggestion
     @name = params[:name]
     @address = params[:address]
+    @description = params[:description]
     @venue = Venue.find_or_create_by_name_and_address(@name, @address)
 
     respond_to do |format|
       if @venue.save
-        @event_venue.update_attributes(event_suggestion_id: @event_suggestion.id, venue_id: @venue.id)
+        @event_venue.update_attributes(event_suggestion_id: @event_suggestion.id, venue_id: @venue.id, description: @description)
         format.html { redirect_to @event_venue, notice: 'Venue was successfully updated.' }
         format.json { head :no_content }
       else
