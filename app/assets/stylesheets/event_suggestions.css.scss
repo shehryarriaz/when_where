@@ -34,3 +34,12 @@ input[type=submit] {
 .list-inline > li {
   padding: 0;
 }
+
+.checkbox-inline {
+  padding-left: 0;
+}
+
+.checkbox-inline + .checkbox-inline {
+  margin-top: 10px;
+  margin-left: 0;
+}
