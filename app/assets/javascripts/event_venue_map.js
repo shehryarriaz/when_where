@@ -4,20 +4,6 @@ eventVenueMap.initialize = function() {
   var mapCanvas = $('#map-canvas')[0];
   var eventVenuePath = $(location).attr('pathname');
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  } else {
-    alert('Your browser does not support geolocation.');
-  }
-
-  function successCallback(position) {
-    console.log(position);
-  }
-
-  function errorCallback(error) {
-    console.log(error);
-  }
-
   if (!!mapCanvas){
 
     drawMap();
@@ -48,6 +34,43 @@ eventVenueMap.initialize = function() {
       var longitude = data.longitude
       var name = data.name;
       var address = data.address;
+
+      // USER LOCATION AND DISTANCE
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+      } else {
+        alert('Your browser does not support geolocation.');
+      }
+
+      function successCallback(position) {
+        console.log(position);
+
+        var origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        var destination = new google.maps.LatLng(latitude, longitude);
+
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+        {
+          origins: [origin],
+          destinations: [destination],
+          travelMode: google.maps.TravelMode.DRIVING,
+          avoidHighways: false,
+          avoidTolls: false
+        }, callback);
+
+        function callback(response, status) {
+          if (status != google.maps.DistanceMatrixStatus.OK) {
+            alert('Error was: ' + status);
+          } else {
+            console.log(response);
+            console.log(response.rows[0].elements[0].distance.text);
+          }
+        }
+      }
+
+      function errorCallback(error) {
+        console.log(error);
+      }
 
       // MAP
       var mapOptions = {
