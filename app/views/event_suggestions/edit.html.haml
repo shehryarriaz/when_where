@@ -36,7 +36,7 @@
           %br
         .col-xs-12.col-sm-6.form-group
           =f.label :date
-          = f.date_select(:start_date, :order => [:day, :month, :year])
+          = f.date_select(:date, :order => [:day, :month, :year])
         .col-xs-12.col-sm-6
           = f.label :start_time, 'At around'
           = f.text_field :start_time, class: 'form-control', placeholder: '7:00 pm'

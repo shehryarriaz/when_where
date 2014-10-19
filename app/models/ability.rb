@@ -18,7 +18,7 @@ class Ability
       can :create, EventChoice, user_id: user.id
       can :destroy, EventChoice, user_id: user.id
       can :accept_suggestions, EventSuggestion do |event_suggestion|
-        user.invitations.where(event_suggestion_id: event_suggestion.id).any?
+        user.invitations.where(event_suggestion_id: event_suggestion.id).any? && event_suggestion.status == 'open'
       end
     else
       can :create, User
