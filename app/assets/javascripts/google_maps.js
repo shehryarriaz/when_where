@@ -3,7 +3,6 @@ var myMap = myMap || {};
 myMap.initialize = function() {
   var mapCanvas = $('#map-canvas')[0];
   var eventVenuePath = $(location).attr('pathname');
-  console.log(eventVenuePath);
 
   if (mapCanvas){
     // AJAX FOR COORDINATES
@@ -17,13 +16,11 @@ myMap.initialize = function() {
         dataType: 'JSON',
         success: function(data) {
           var venueId = data.venue_id;
-          console.log(venueId);
           $.ajax({
             url: '/venues/' + venueId,
             type: 'GET',
             dataType: 'JSON',
             success: function(data) {
-              console.log(data);
               setupMap(data);
             }
           });
@@ -32,10 +29,11 @@ myMap.initialize = function() {
     }
 
     function setupMap(data) {
+      console.log(data);
       var latitude = data.latitude
       var longitude = data.longitude
-
-      console.log(latitude, longitude);
+      var name = data.name;
+      var address = data.address;
 
       // MAP
       var mapOptions = {
@@ -43,21 +41,27 @@ myMap.initialize = function() {
         zoom: 14,
         mapTypeId:google.maps.MapTypeId.ROADMAP
       };
-      var map = new google.maps.Map( mapCanvas, mapOptions);
+      var map = new google.maps.Map(mapCanvas, mapOptions);
 
       // MARKER
       var markerOptions = {
-        position: new google.maps.LatLng( latitude, longitude)
+        position: new google.maps.LatLng(latitude, longitude),
+        map: map,
+        name: name,
+        address: address
       }
       var marker = new google.maps.Marker(markerOptions);
       marker.setMap(map);
 
       // INFO WINDOW
       var infoWindowOptions = {
-        content: 'We Are Here!',
-        position: new google.maps.LatLng(51.535, -0.10945)
+        content: '<strong>' + name + '</strong><br><medium>' + address + '</medium>',
+        position: new google.maps.LatLng(latitude, longitude)
       }
-      var popup = new google.maps.InfoWindow(infoWindowOptions);
+      google.maps.event.addListener(marker, 'click', function() {
+        var popup = new google.maps.InfoWindow(infoWindowOptions);
+        popup.open(map, this);
+      });
     }
   }   
 }
