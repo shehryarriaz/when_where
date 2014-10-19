@@ -1,6 +1,6 @@
-var myMap = myMap || {};
+var eventVenueMap = eventVenueMap || {};
 
-myMap.initialize = function() {
+eventVenueMap.initialize = function() {
   var mapCanvas = $('#map-canvas')[0];
   var eventVenuePath = $(location).attr('pathname');
 
@@ -29,7 +29,6 @@ myMap.initialize = function() {
     }
 
     function setupMap(data) {
-      console.log(data);
       var latitude = data.latitude
       var longitude = data.longitude
       var name = data.name;
@@ -58,12 +57,13 @@ myMap.initialize = function() {
         content: '<strong>' + name + '</strong><br><medium>' + address + '</medium>',
         position: new google.maps.LatLng(latitude, longitude)
       }
+      var popup = new google.maps.InfoWindow(infoWindowOptions);
+
       google.maps.event.addListener(marker, 'click', function() {
-        var popup = new google.maps.InfoWindow(infoWindowOptions);
-        popup.open(map, this);
+        popup.open(map, marker);
       });
     }
   }   
 }
 
-google.maps.event.addDomListener(window, 'load', myMap.initialize);
+google.maps.event.addDomListener(window, 'load', eventVenueMap.initialize);
