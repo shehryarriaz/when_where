@@ -56,6 +56,28 @@ class EventVenuesController < ApplicationController
     end
   end
 
+  def upvote
+    @event_venue = EventVenue.find(params[:id])
+    @event_suggestion = @event_venue.event_suggestion
+    case params[:direction]
+    when 'like'
+      @event_venue.liked_by current_user
+    when 'unlike'
+      @event_venue.unliked_by current_user
+    end
+
+    respond_to do |format|
+      if @event_venue.save
+        raise
+        format.html { redirect_to @event_suggestion, notice: 'You have successfully voted on #{@event_venue.venue.name}.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @event_suggestion, notice: 'Sorry, something went wrong. Please try voting again'}
+        format.json { render json: @event_venue.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def destroy
     @event_venue = EventVenue.find(params[:id])
     @event_suggestion = @event_venue.event_suggestion
