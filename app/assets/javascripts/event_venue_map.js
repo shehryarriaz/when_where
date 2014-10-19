@@ -4,12 +4,27 @@ eventVenueMap.initialize = function() {
   var mapCanvas = $('#map-canvas')[0];
   var eventVenuePath = $(location).attr('pathname');
 
-  if (mapCanvas){
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  } else {
+    alert('Your browser does not support geolocation.');
+  }
+
+  function successCallback(position) {
+    console.log(position);
+  }
+
+  function errorCallback(error) {
+    console.log(error);
+  }
+
+  if (!!mapCanvas){
+
+    drawMap();
+
     // AJAX FOR COORDINATES
 
-    successCallback();
-
-    function successCallback() {
+    function drawMap() {
       $.ajax({
         url: eventVenuePath,
         type: 'GET',
