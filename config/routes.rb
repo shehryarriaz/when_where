@@ -3,6 +3,7 @@ WhenWhere::Application.routes.draw do
   devise_for :users
   resources :users
   resources :event_venues
+  resources :venues
   resources :event_suggestions do
     member do
       post :accept_suggestions
