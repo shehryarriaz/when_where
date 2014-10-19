@@ -56,7 +56,7 @@ class EventVenuesController < ApplicationController
     end
   end
 
-  def upvote
+  def vote
     @event_venue = EventVenue.find(params[:id])
     @event_suggestion = @event_venue.event_suggestion
     case params[:direction]
@@ -68,8 +68,7 @@ class EventVenuesController < ApplicationController
 
     respond_to do |format|
       if @event_venue.save
-        raise
-        format.html { redirect_to @event_suggestion, notice: 'You have successfully voted on #{@event_venue.venue.name}.' }
+        format.html { redirect_to @event_suggestion}
         format.json { head :no_content }
       else
         format.html { redirect_to @event_suggestion, notice: 'Sorry, something went wrong. Please try voting again'}

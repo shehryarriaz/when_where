@@ -41,10 +41,15 @@
     .row
       .col-xs-12.col-sm-12.col-md-12
         %h3 Where should we go?
-        %ul.list-unstyled.list-inline.text-center
+        %ul.list-unstyled.text-center
           - @event_venues.each do |venue|
             %li
-            = link_to venue.venue.name, event_venue_path(venue), class: "btn btn-default btn-lg"
+              = link_to venue.venue.name, event_venue_path(venue), class: "btn btn-default btn-lg"
+              - if !(@current_user.voted_for? venue)
+                = link_to 'Like', vote_event_venue_path(venue, direction: 'like'), method: :put
+              - else
+                = link_to 'Unlike', vote_event_venue_path(venue, direction: 'unlike'), method: :put
+              = venue.get_upvotes.size
         = form_for(@event_venue, role: "form") do |f|
           - if @venue.errors.any?
             %h4
