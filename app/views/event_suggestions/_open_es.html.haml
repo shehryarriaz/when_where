@@ -67,7 +67,7 @@
         %br
     .row
       .col-xs-12.col-sm-12.col-md-12
-        = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do
+        = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion), :id => 'accept_suggestions_form') do
           - if @event_choice.errors.any?
             %h4
               = pluralize(@event_choice.errors.count, "error")
