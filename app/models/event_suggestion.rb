@@ -9,12 +9,13 @@ class EventSuggestion < ActiveRecord::Base
   has_many :event_venues
   has_many :venues, through: :event_venues
   
-  validates :start_date, presence: :true
-  validates :category, presence: :true
+  validates :start_date, presence: {message: "You need to select at least a start date."}
+  validates :category, presence: {message: "You need to choose either dinner or drinks!"}
 
   after_create :create_associated_events
   validate :check_event_has_location_if_finalised
   validate :check_event_has_start_time_if_finalised
+  validate :check_event_has_date_if_finalised
 
   private
   def create_associated_events
@@ -38,6 +39,13 @@ class EventSuggestion < ActiveRecord::Base
   def check_event_has_start_time_if_finalised
     if status == 'closed'
       errors.add(:base, "Sorry, this event must have a start time") unless start_time
+    end
+  end
+
+  private
+  def check_event_has_date_if_finalised
+    if status == 'closed'
+      errors.add(:base, "Sorry, this event must have a date") unless date
     end
   end
 

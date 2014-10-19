@@ -30,3 +30,16 @@ input[type=submit] {
   margin-top: 10px;
   padding: 9px 18px;
 }
+
+.list-inline > li {
+  padding: 0;
+}
+
+.checkbox-inline {
+  padding-left: 0;
+}
+
+.checkbox-inline + .checkbox-inline {
+  margin-top: 10px;
+  margin-left: 0;
+}

@@ -27,6 +27,7 @@
 
     %br
    
+    = link_to 'Edit event', edit_event_suggestion_path(@event_suggestion), class: 'btn btn-primary' if can? :update, @event_suggestion
     = link_to 'Finalise event', finalise_event_suggestion_path(@event_suggestion), method: :put, class: 'btn btn-primary', data: { confirm: 'Location, date and time all set?' } if can? :update, @event_suggestion
 
     %h3 Invited
@@ -34,52 +35,56 @@
       - @invitees.each do |invitee|
         %li #{invitee.name || invitee.email}
 
-    %h3 Where should we go?
-    %ul.list-unstyled
-      - @event_venues.each do |venue|
-        %li
-        = link_to venue.venue.name, event_venue_path(venue), class: "btn btn-default btn-lg"
-
-    = form_for(@event_venue, role: "form") do |f|
-      - if @venue.errors.any?
-        %h4
-          = pluralize(@venue.errors.count, "error")
-          prohibited this venue from being saved:
-        %ul
-        - @venue.errors.full_messages.each do |msg|
-          %li= msg
-      = hidden_field_tag :event_suggestion_id, @event_suggestion.id
-      .form-group
-        = text_field_tag :name, nil, class: "form-control", placeholder: "Venue name"
-      .form-group
-        = text_field_tag :address, nil, class: "form-control", placeholder: "Address"
-      = submit_tag "Add a venue", class: "btn btn-primary btn-lg"
-    %br
+    
 
   .col-xs-12.col-sm-6.col-md-6
-    = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do
-      - if @event_choice.errors.any?
-        %h4
-          = pluralize(@event_choice.errors.count, "error")
-          prohibited this event_choice from being saved:
-        %ul
-        - @event_choice.errors.full_messages.each do |msg|
-          %li= msg
-      %table.table
-        %tr
-          %th.text-center WHEN ARE YOU FREE?
-          %th.text-center WHO'S COMING?
-        - @events.each do |event|
-          %tr
-            %td
-              = check_box_tag "event_ids[]", event.id, @current_user.events.include?(event), id: "event_ids_#{event.id}", style: "display:none"
-              = label_tag :event_ids, event.date.strftime("%a, %d %b"), for: "event_ids_#{event.id}", class: "btn btn-default btn-lg btn-block"
-            %td
-              - event.event_choices.each do |choice|
-                - if event.event_choices.length == 1
-                  %p{ style: "display:inline"} Only #{choice.user.name || choice.user.email} is free.
-                - elsif choice == event.event_choices.last
-                  %p{ style: "display:inline"} and #{choice.user.name || choice.user.email} are free.
-                - else
-                  %p{ style: "display:inline"} #{choice.user.name || choice.user.email},
-      = submit_tag "COUNT ME IN", class: "btn btn-primary btn-lg btn-block"
+    .row
+      .col-xs-12.col-sm-12.col-md-12
+        %h3 Where should we go?
+        %ul.list-unstyled.list-inline.text-center
+          - @event_venues.each do |venue|
+            %li
+            = link_to venue.venue.name, event_venue_path(venue), class: "btn btn-default btn-lg"
+        = form_for(@event_venue, role: "form") do |f|
+          - if @venue.errors.any?
+            %h4
+              = pluralize(@venue.errors.count, "error")
+              prohibited this venue from being saved:
+            %ul
+            - @venue.errors.full_messages.each do |msg|
+              %li= msg
+          = hidden_field_tag :event_suggestion_id, @event_suggestion.id
+          .form-group
+            = text_field_tag :name, nil, class: "form-control", placeholder: "Venue name"
+          .form-group
+            = text_field_tag :address, nil, class: "form-control", placeholder: "Address"
+          = submit_tag "Add a venue", class: "btn btn-primary btn-lg"
+        %br
+    .row
+      .col-xs-12.col-sm-12.col-md-12
+        = form_tag(accept_suggestions_event_suggestion_path(@event_suggestion)) do
+          - if @event_choice.errors.any?
+            %h4
+              = pluralize(@event_choice.errors.count, "error")
+              prohibited this event_choice from being saved:
+            %ul
+            - @event_choice.errors.full_messages.each do |msg|
+              %li= msg
+          %table.table
+            %tr
+              %th.text-center WHEN ARE YOU FREE?
+              %th.text-center WHO'S COMING?
+            - @events.each do |event|
+              %tr
+                %td
+                  = check_box_tag "event_ids[]", event.id, @current_user.events.include?(event), id: "event_ids_#{event.id}", style: "display:none"
+                  = label_tag :event_ids, event.date.strftime("%a, %d %b"), for: "event_ids_#{event.id}", class: "btn btn-default btn-lg btn-block"
+                %td
+                  - event.event_choices.each do |choice|
+                    - if event.event_choices.length == 1
+                      %p{ style: "display:inline"} Only #{choice.user.name || choice.user.email} is free.
+                    - elsif choice == event.event_choices.last
+                      %p{ style: "display:inline"} and #{choice.user.name || choice.user.email} are free.
+                    - else
+                      %p{ style: "display:inline"} #{choice.user.name || choice.user.email},
+          = submit_tag "COUNT ME IN", class: "btn btn-primary btn-lg btn-block"
