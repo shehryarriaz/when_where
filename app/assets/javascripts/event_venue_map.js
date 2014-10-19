@@ -37,7 +37,7 @@ eventVenueMap.initialize = function() {
       // MAP
       var mapOptions = {
         center: { lat: latitude, lng: longitude},
-        zoom: 14,
+        zoom: 15,
         mapTypeId:google.maps.MapTypeId.ROADMAP
       };
       var map = new google.maps.Map(mapCanvas, mapOptions);
