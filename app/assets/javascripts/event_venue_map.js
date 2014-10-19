@@ -63,7 +63,10 @@ eventVenueMap.initialize = function() {
         popup.open(map, marker);
       });
     }
-  }   
+  }
+  if ($('#autocomplete').length) { 
+  var autocomplete = new google.maps.places.Autocomplete($('#autocomplete')[0]);
+  }
 }
 
 google.maps.event.addDomListener(window, 'load', eventVenueMap.initialize);

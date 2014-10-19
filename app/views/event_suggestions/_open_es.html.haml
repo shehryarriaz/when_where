@@ -57,7 +57,7 @@
           .form-group
             = text_field_tag :name, nil, class: "form-control", placeholder: "Venue name"
           .form-group
-            = text_field_tag :address, nil, class: "form-control", placeholder: "Address"
+            = text_field_tag :address, nil, id: "autocomplete", class: "form-control", placeholder: "Address"
           = submit_tag "Add a venue", class: "btn btn-primary btn-lg"
         %br
     .row
