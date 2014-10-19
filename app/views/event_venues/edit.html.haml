@@ -1,5 +1,6 @@
 .row
   .col-xs-12.col-sm-6.col-md-6
+    %h2 Edit #{@venue.name}
     = form_for(@event_venue, role: "form") do |f|
       - if @venue.errors.any?
         %h4
@@ -12,5 +13,7 @@
         = text_field_tag :name, nil, class: "form-control", placeholder: "Venue name", value: @venue_name
       .form-group
         = text_field_tag :address, nil, class: "form-control", placeholder: "Address", value: @venue_address
+      .form-group
+        = text_area_tag :description, @event_venue.description, class: "form-control", placeholder: "Description"
       = submit_tag "Update", class: "btn btn-primary btn-lg"
     = link_to "Back", @event_venue, class: "btn btn-default btn-lg"
