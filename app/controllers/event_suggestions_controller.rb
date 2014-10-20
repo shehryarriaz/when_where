@@ -5,19 +5,19 @@ class EventSuggestionsController < ApplicationController
 
   # GET /event_suggestions
   # GET /event_suggestions.json
-  def index
-    # @events = EventSuggestion.all
-    # @events_as_host = current_user.events_as_host
-    @events_as_invitee = current_user.events_as_invitee
-    @event_choices = current_user.event_choices
-    @events_responded_to = (current_user.event_choices.collect { |choice| choice.event.event_suggestion }).uniq
-    @events_pending = @events_as_invitee - @events_responded_to
+  # def index
+  #   @events = EventSuggestion.all
+  #   @events_as_host = current_user.events_as_host
+  #   @events_as_invitee = current_user.events_as_invitee
+  #   @event_choices = current_user.event_choices
+  #   @events_responded_to = (current_user.event_choices.collect { |choice| choice.event.event_suggestion }).uniq
+  #   @events_pending = @events_as_invitee - @events_responded_to
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @event_suggestions }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html # index.html.erb
+  #     format.json { render json: @event_suggestions }
+  #   end
+  # end
 
   def manage_events
     @events_as_host = current_user.events_as_host
@@ -29,10 +29,15 @@ class EventSuggestionsController < ApplicationController
   end
 
   def upcoming_events
+    @events_as_host_closed = current_user.events_as_host.where(status: "closed")
+    @events_as_invitee_closed = current_user.events_as_invitee.where(status: "closed")
+    @event_choices = current_user.event_choices
+    @events_responded_to_closed = (((@event_choices.collect { |choice| choice.event.event_suggestion }).uniq).collect { |event| event if event.status == "closed" }).compact
+    @upcoming_events = (@events_as_host_closed + @events_responded_to_closed).uniq
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @events_pending }
+      format.json { render json: @upcoming_events }
     end
   end
 
