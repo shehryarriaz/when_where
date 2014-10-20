@@ -8,6 +8,13 @@ GIT
       sass (>= 3.2.0)
       sprockets-rails (~> 2.0.0.backport1)
 
+GIT
+  remote: git://github.com/shehryarriaz/bootstrap-sass.git
+  revision: 5bb63c356a1377e772521a235919d1676e263260
+  specs:
+    bootstrap-sass (3.1.1.1)
+      sass (~> 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -50,8 +57,6 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.1.1.1)
-      sass (~> 3.2)
     builder (3.0.4)
     byebug (3.5.1)
       columnize (~> 0.8)
@@ -238,7 +243,7 @@ DEPENDENCIES
   awesome_print
   better_errors
   binding_of_caller
-  bootstrap-sass (= 3.1.1.1)
+  bootstrap-sass!
   cancancan (~> 1.9)
   capybara
   coffee-rails (~> 3.2.1)
