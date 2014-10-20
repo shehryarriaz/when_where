@@ -43,8 +43,6 @@ eventVenueMap.initialize = function() {
       }
 
       function successCallback(position) {
-        console.log(position);
-
         var origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         var destination = new google.maps.LatLng(latitude, longitude);
 
@@ -62,8 +60,7 @@ eventVenueMap.initialize = function() {
           if (status != google.maps.DistanceMatrixStatus.OK) {
             alert('Error was: ' + status);
           } else {
-            console.log(response);
-            console.log(response.rows[0].elements[0].distance.text);
+            $('.distance').append(" | " + response.rows[0].elements[0].distance.text + " from your current location");
           }
         }
       }
