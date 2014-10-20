@@ -14,6 +14,9 @@ class Ability
       can :read, EventSuggestion, host_id: user.id
       can :update, EventSuggestion, host_id: user.id
       can :destroy, EventSuggestion, host_id: user.id
+      can :manage_events, EventSuggestion
+      can :upcoming_events, EventSuggestion
+      can :event_invitations, EventSuggestion
       can :create, Invitation
       can :create, EventChoice, user_id: user.id
       can :destroy, EventChoice, user_id: user.id

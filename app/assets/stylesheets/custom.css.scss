@@ -1,4 +1,15 @@
-#map-canvas {
-  height: 30em;
-  width: 100%;
+html {
+  body{
+    .container {
+      .row {
+        #map-canvas {
+          height: 30em;
+          width: 100%;
+        }
+        .btn-group-vertical.event_list {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
