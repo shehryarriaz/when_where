@@ -6,6 +6,9 @@
       = link_to omniauth_authorize_path(resource_name, :google_oauth2), class: 'btn btn-block btn-social btn-google-plus' do
         %i.fa.fa-google-plus
         Sign in with Google
+      .divider
+        %span.divider_text
+          or
       = form_for(resource, as: resource_name, url: session_path(resource_name), html: {role: 'form'}) do |f|
         .form-group
           = f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Email'

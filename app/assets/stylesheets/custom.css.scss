@@ -2,3 +2,19 @@
   height: 30em;
   width: 100%;
 }
+
+.divider {
+  height: 1px; 
+  background-color: rgb(231,231,231);
+  text-align: center; 
+  margin: 40px 0;
+  color: rgb(119,119,119);
+}
+
+.divider_text {
+  background-color: white; 
+  position: relative; 
+  top: -0.8em; 
+  width: 40px;
+  display: inline-block;
+}
