@@ -36,4 +36,16 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def can_destroy?
+    # user can destroy himself or 
+    # admin user can destroy anyone only until 1 admin user is left 
+    if self.role == 'basic_user' 
+      return true
+    elsif self.role == 'admin'
+       return true if User.find_all_by_role("admin").count > 1
+    else
+      return false
+    end
+  end
 end

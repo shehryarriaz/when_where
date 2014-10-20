@@ -48,7 +48,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        UserMailer.registration_confirmation(@user).deliver
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
       else
@@ -77,8 +76,12 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user = current_user
-    @user.destroy
+    @user = User.find(params[:id])
+    if @user.can_destroy?
+      @user.destroy
+    else
+      flash[:notice] = "Sorry, can't delete the last admin user."
+    end
 
     respond_to do |format|
       format.html { redirect_to users_url }
