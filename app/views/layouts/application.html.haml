@@ -24,14 +24,16 @@
           %ul.nav.navbar-nav
             %li
               = link_to "All users", users_path if can? :read, User
-            %li
-              - if current_user 
-                = link_to root_path do 
-                  My events
-                  - if @events_pending
-                    %span.badge.pull-right #{ @events_pending.count}
-            %li
-              = link_to "Create event", new_event_suggestion_path if current_user
+            - if current_user
+              %li
+                = link_to "Create", new_event_suggestion_path
+              %li
+                = link_to "Host", manage_events_event_suggestions_path
+              %li
+                = link_to "Upcoming", upcoming_events_event_suggestions_path
+              %li
+                = link_to "Invitations", event_invitations_event_suggestions_path
+            
           %ul.nav.navbar-nav.navbar-right
             - if current_user
               %li #{link_to current_user.email, user_path(current_user)}
