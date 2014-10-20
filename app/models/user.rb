@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :event_choices
   has_many :events, through: :event_choices
 
+  acts_as_voter
+
   def role?(role_to_compare)
     self.role.to_s == role_to_compare.to_s
   end

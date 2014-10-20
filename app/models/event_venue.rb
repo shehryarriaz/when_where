@@ -6,4 +6,7 @@ class EventVenue < ActiveRecord::Base
 
   validates :event_suggestion_id, presence: :true
   validates :venue_id, presence: :true
+
+  acts_as_votable
+
 end
