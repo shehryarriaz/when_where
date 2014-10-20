@@ -18,7 +18,7 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to "dinnerordrinks", root_path, class: "navbar-brand"
+          = link_to "dinnerordrinks", root_path, class: "navbar-brand", id: 'navbar_logo'
 
         .collapse.navbar-collapse#bs-example-navbar-collapse-1
           %ul.nav.navbar-nav
@@ -44,5 +44,8 @@
       .alert.alert-info{role: "alert"}= notice
     -if alert
       .alert.alert-warning{role: "alert"}= alert
-    .container
-      = yield
+    -if content_for?(:home)
+      = yield(:home)
+    -else
+      .container
+        = yield

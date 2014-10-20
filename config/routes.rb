@@ -1,9 +1,10 @@
 WhenWhere::Application.routes.draw do
+  # get "home/index"
   authenticated :user do
     root to: 'event_suggestions#index', :as => :authenticated_root
   end
-  root to: redirect('/users/sign_in')
-  # root to: 'event_suggestions#index'
+  # root to: redirect('/users/sign_in')
+  root to: 'home#index'
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
   devise_scope :user do
     get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
