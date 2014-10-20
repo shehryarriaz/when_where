@@ -1,7 +1,7 @@
 WhenWhere::Application.routes.draw do
   # get "home/index"
   authenticated :user do
-    root to: 'event_suggestions#index', :as => :authenticated_root
+    root to: 'event_suggestions#upcoming_events', :as => :authenticated_root
   end
   # root to: redirect('/users/sign_in')
   root to: 'home#index'
@@ -17,6 +17,11 @@ WhenWhere::Application.routes.draw do
   end
   resources :venues
   resources :event_suggestions do
+    collection do
+      get :manage_events
+      get :upcoming_events
+      get :event_invitations
+    end
     member do
       post :accept_suggestions
       put :finalise
