@@ -1,15 +1,36 @@
-html {
-  body{
-    .container {
-      .row {
-        #map-canvas {
-          height: 30em;
-          width: 100%;
-        }
-        .btn-group-vertical.event_list {
-          width: 100%;
-        }
-      }
-    }
-  }
+#map-canvas {
+  height: 30em;
+  width: 100%;
 }
+
+.btn-group-vertical.event_list {
+  width: 100%;
+}
+
+.divider {
+  height: 1px; 
+  background-color: rgb(231,231,231);
+  text-align: center; 
+  margin: 40px 0;
+  color: rgb(119,119,119);
+}
+
+.divider_text {
+  background-color: white; 
+  position: relative; 
+  top: -0.8em; 
+  width: 40px;
+  display: inline-block;
+}
+
+h1#home_title {
+  letter-spacing: -1px;
+}
+
+a#home_signup_button {
+  margin: 50px 0;
+}
+
+.jumbotron {
+  // background-color: white;
+  text-align: center;

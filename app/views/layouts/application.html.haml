@@ -18,10 +18,12 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to "dinnerordrinks", root_path, class: "navbar-brand"
+          = link_to "dinnerordrinks", root_path, class: "navbar-brand", id: 'navbar_logo'
 
         .collapse.navbar-collapse#bs-example-navbar-collapse-1
           %ul.nav.navbar-nav
+            %li
+              = link_to "Create event", new_event_suggestion_path
             %li
               = link_to "All users", users_path if can? :read, User
             - if current_user
@@ -33,18 +35,22 @@
                 = link_to "Upcoming", upcoming_events_event_suggestions_path
               %li
                 = link_to "Invitations", event_invitations_event_suggestions_path
-            
           %ul.nav.navbar-nav.navbar-right
             - if current_user
               %li #{link_to current_user.email, user_path(current_user)}
               %li #{link_to "Log out", destroy_user_session_path}
             - else
-              %li #{link_to "Log In", new_user_session_path}
-              %li #{link_to "Sign Up", new_user_registration_path}
+              - if params[:controller] == "devise/sessions" && params[:action] == 'new'
+                %li #{link_to "Sign Up", new_user_registration_path}
+              - else
+                %li #{link_to "Log In", new_user_session_path}
             
     -if notice
       .alert.alert-info{role: "alert"}= notice
     -if alert
       .alert.alert-warning{role: "alert"}= alert
-    .container
-      = yield
+    -if content_for?(:home)
+      = yield(:home)
+    -else
+      .container
+        = yield
