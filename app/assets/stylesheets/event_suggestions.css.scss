@@ -17,10 +17,16 @@ form#accept_suggestions_form{
   }
 }
 
+
+h1#login_site_title {
+  margin-bottom: 40px;
+}
+
 form#new_user, form#edit_user{
   margin: 30px 0;
   .checkbox input[type=checkbox] {
     margin-left: 0;
+    float: none;
   }
 }
 
