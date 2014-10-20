@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: git://github.com/shehryarriaz/bootstrap-sass.git
-  revision: 5bb63c356a1377e772521a235919d1676e263260
+  revision: 0cf302c67154c518a4870287f1008f4833b2b7af
   specs:
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
@@ -47,7 +47,7 @@ GEM
       multi_json (~> 1.0)
     acts_as_votable (0.10.0)
     arel (3.0.3)
-    autoprefixer-rails (3.1.1.20141001)
+    autoprefixer-rails (3.1.2.20141016)
       execjs
     awesome_print (1.2.0)
     bcrypt (3.1.7)
@@ -63,7 +63,7 @@ GEM
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
     cancancan (1.9.2)
-    capybara (2.4.3)
+    capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
@@ -81,21 +81,22 @@ GEM
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
-    devise (3.3.0)
+    devise (3.4.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
+      responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     erb2haml (0.1.5)
       html2haml
     erubis (2.7.0)
-    execjs (2.2.1)
-    factory_girl (4.4.0)
+    execjs (2.2.2)
+    factory_girl (4.5.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.4.1)
-      factory_girl (~> 4.4.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
     faker (1.4.3)
       i18n (~> 0.5)
@@ -189,6 +190,8 @@ GEM
     rake (10.3.2)
     rdoc (3.12.2)
       json (~> 1.4)
+    responders (1.1.1)
+      railties (>= 3.2, < 4.2)
     rspec-core (2.14.8)
     rspec-expectations (2.14.5)
       diff-lcs (>= 1.1.3, < 2.0)
@@ -203,7 +206,7 @@ GEM
       rspec-mocks (~> 2.14.0)
     ruby_parser (3.1.3)
       sexp_processor (~> 4.1)
-    sass (3.4.5)
+    sass (3.4.6)
     sexp_processor (4.4.4)
     simplecov (0.7.1)
       multi_json (~> 1.0)
