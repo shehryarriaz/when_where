@@ -14,4 +14,7 @@
           = f.label :remember_me
       = f.submit "Log in", class: 'btn btn-default'
 
+    = link_to omniauth_authorize_path(resource_name, :google_oauth2), class: 'btn btn-block btn-social btn-google-plus' do
+      %i.fa.fa-google-plus
+      Sign in with Google
     = render "devise/shared/links"
