@@ -23,6 +23,8 @@
         .collapse.navbar-collapse#bs-example-navbar-collapse-1
           %ul.nav.navbar-nav
             %li
+              = link_to "Create event", new_event_suggestion_path
+            %li
               = link_to "All users", users_path if can? :read, User
             %li
               - if current_user 
@@ -30,15 +32,16 @@
                   My events
                   - if @events_pending
                     %span.badge.pull-right #{ @events_pending.count}
-            %li
-              = link_to "Create event", new_event_suggestion_path if current_user
+
           %ul.nav.navbar-nav.navbar-right
             - if current_user
               %li #{link_to current_user.email, user_path(current_user)}
               %li #{link_to "Log out", destroy_user_session_path}
             - else
-              %li #{link_to "Log In", new_user_session_path}
-              %li #{link_to "Sign Up", new_user_registration_path}
+              - if params[:controller] == "devise/sessions" && params[:action] == 'new'
+                %li #{link_to "Sign Up", new_user_registration_path}
+              - else
+                %li #{link_to "Log In", new_user_session_path}
             
     -if notice
       .alert.alert-info{role: "alert"}= notice
