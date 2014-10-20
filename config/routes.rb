@@ -12,6 +12,11 @@ WhenWhere::Application.routes.draw do
   end
   resources :venues
   resources :event_suggestions do
+    collection do
+      get :manage_events
+      get :upcoming_events
+      get :event_invitations
+    end
     member do
       post :accept_suggestions
       put :finalise
