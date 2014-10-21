@@ -20,14 +20,12 @@
       .row
         %h3 SOMETIME BETWEEN
         .col-xs-12.col-sm-5.form-group
-          = f.label :start_date
-          %br
-          = f.date_select(:start_date, :order => [:day, :month, :year])
-        .col-xs-12.col-sm-5
-          = f.label :end_date
-          %br
-          = f.date_select(:end_date, :order => [:day, :month, :year])
-        .col-xs-3.col-sm-1
+          .input-daterange.input-group#datepicker
+            %input{type:"text", class: "input-sm form-control", name: "event_suggestion[start_date]"}
+            %span.input-group-addon to
+            %input{type:"text", class:"input-sm form-control", name:"event_suggestion[end_date]"}
+
+          
         .col-xs-6.col-sm-2
           = f.label :start_time, 'At around'
           = f.text_field :start_time, class: 'form-control', placeholder: '7:00 pm'
