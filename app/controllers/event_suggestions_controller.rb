@@ -5,6 +5,8 @@ class EventSuggestionsController < ApplicationController
 
   def manage_events
     @events_as_host = current_user.events_as_host
+    @dinner_icon = '<span class="glyphicon glyphicon-cutlery list_icon"></span>'
+    @drinks_icon = '<span class="glyphicon glyphicon-glass list_icon"></span>'
 
     respond_to do |format|
       format.html # index.html.erb
@@ -18,6 +20,8 @@ class EventSuggestionsController < ApplicationController
     @event_choices = current_user.event_choices
     @events_responded_to_closed = (((@event_choices.collect { |choice| choice.event.event_suggestion }).uniq).collect { |event| event if event.status == "closed" }).compact
     @upcoming_events = (@events_as_host_closed + @events_responded_to_closed).uniq
+    @dinner_icon = '<span class="glyphicon glyphicon-cutlery list_icon"></span>'
+    @drinks_icon = '<span class="glyphicon glyphicon-glass list_icon"></span>'
 
     respond_to do |format|
       format.html # index.html.erb
@@ -30,6 +34,8 @@ class EventSuggestionsController < ApplicationController
     @event_choices = current_user.event_choices
     @events_responded_to = (current_user.event_choices.collect { |choice| choice.event.event_suggestion }).uniq
     @events_pending = @events_as_invitee - @events_responded_to
+    @dinner_icon = '<span class="glyphicon glyphicon-cutlery list_icon"></span>'
+    @drinks_icon = '<span class="glyphicon glyphicon-glass list_icon"></span>'
 
     respond_to do |format|
       format.html # index.html.erb

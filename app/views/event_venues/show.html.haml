@@ -3,6 +3,7 @@
     %h2 #{@venue.name}
     %h2
       %small.distance
+        %span.glyphicon.glyphicon-map-marker
         #{@venue.address}
     %p.lead #{@event_venue.description}
     = link_to "Edit", edit_event_venue_path(@event_venue), class: "btn btn-default btn-lg"

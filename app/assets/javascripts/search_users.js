@@ -22,5 +22,5 @@ $( document ).ready(function(ev) {
 
 function displayEmails(object) {
   $("#search_users").append('<input id="invitation_ids_' + object.id + '" name="event_suggestion[invitee_ids][]" style="display:none" type="checkbox" value="' + object.id + '" checked="checked">');
-  $("#search_users").append('<label class="btn btn-default btn-lg" for="invitation_ids_' + object.id +'">' + object.value + '</label>');
+  $("#search_users").append('<label class="btn btn-default btn-lg" for="invitation_ids_' + object.id +'"><span class="glyphicon glyphicon-user"></span> ' + object.value + '</label>');
 }
