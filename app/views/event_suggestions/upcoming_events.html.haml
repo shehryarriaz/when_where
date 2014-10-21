@@ -1,15 +1,19 @@
 .row
-  .col-xs-12.col-sm-12.col-md-12
-    - if @upcoming_events.any?
+  - if @upcoming_events.any?
+    .col-xs-12.col-sm-12.col-md-12.text-center
       %h2
         Upcoming events
-        
+        %small Today is #{Date.today.strftime("%A, %d %B")}
+    .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
       .btn-group-vertical.event_list
         - @upcoming_events.each do |event|
           = link_to event.name, event, class: "btn btn-default btn-lg"
-    - else
+  - else
+    .col-xs-12.col-sm-12.col-md-12.text-center
       %h2 
         Nothing on the horizon
+        %br
         %small Today is #{Date.today.strftime("%A, %d %B")}
+    .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
       .btn-group-vertical.event_list
         = link_to "Make it happen!", new_event_suggestion_path, class: "btn btn-default btn-lg"

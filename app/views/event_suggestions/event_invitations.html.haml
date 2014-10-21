@@ -1,11 +1,14 @@
 .row
-  .col-xs-12.col-sm-12.col-md-12
-    - if @events_pending.any?
+  - if @events_pending.any?
+    .col-xs-12.col-sm-12.col-md-12.text-center
       %h2 Events requesting your glorious presence
+    .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
       .btn-group-vertical.event_list
         - @events_pending.each do |event|
           = link_to event.name, event, class: "btn btn-default btn-lg"
-    - else
+  - else
+    .col-xs-12.col-sm-12.col-md-12.text-center
       %h2 Not that popular, huh?
+    .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
       .btn-group-vertical.event_list
         = link_to "Create an event of your own!", new_event_suggestion_path, class: "btn btn-default btn-lg"
