@@ -13,12 +13,20 @@ class EventSuggestion < ActiveRecord::Base
   validates :category, presence: {message: "You need to choose either dinner or drinks!"}
 
   after_create :create_associated_events
+  validate :check_end_date_is_later_than_start_date
   validate :check_event_has_location_if_finalised
   validate :check_event_has_start_time_if_finalised
   validate :check_event_has_date_if_finalised
 
   def invited?(user)
     invitees.include?(user)
+  end
+
+  private
+  def check_end_date_is_later_than_start_date
+    if end_date
+      errors.add(:base, "End date can't be earlier than the start date! That just doesn't make sense... ") unless end_date >= start_date
+    end
   end
 
   private
