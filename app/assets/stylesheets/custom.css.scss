@@ -41,3 +41,26 @@ a#home_signup_button {
   // background-color: white;
   text-align: center;
 }
+
+.new_event_category {
+  padding: 0;
+}
+
+#dinner_cat_button, #drinks_cat_button {
+  border-radius: 0;
+  border: 0;
+  height: 100px;
+  line-height: 4.4;
+}
+
+// #dinner_cat_button {
+//   border: 2px solid rgb(66,139,202);
+// }
+
+// #drinks_cat_button {
+//   border: 2px solid rgb(217,83,79);
+// }
+
+
+
+

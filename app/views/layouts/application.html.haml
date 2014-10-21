@@ -24,11 +24,7 @@
           %ul.nav.navbar-nav
             %li
               = link_to "Create event", new_event_suggestion_path
-            %li
-              = link_to "All users", users_path if can? :read, User
             - if current_user
-              %li
-                = link_to "Create", new_event_suggestion_path
               %li
                 = link_to "Hosting", manage_events_event_suggestions_path
               %li

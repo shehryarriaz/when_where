@@ -1,41 +1,42 @@
-- if @event_suggestion.errors.any?
-  %h4
-    = pluralize(@event_suggestion.errors.count, "error")
-    prohibited this event from being saved:
-  %ul.list-unstyled
-    -@event_suggestion.errors.each_with_index.each do |msg, i|
-      %li= msg[1]
-
-.col-xs-12.col-md-8.col-md-offset-2.text-center
-  = form_for(@event_suggestion, html: {role: 'form'}) do |f|
-    .row
-      %h3 I WANT TO HAVE
-      .col-xs-6
-        = f.radio_button(:category, 'dinner', style: 'display:none')
-        = f.label(:category_dinner, 'Dinner', class: 'btn btn-default btn-block btn-lg', id:'dinner_cat_button')
-      .col-xs-6
-        = f.radio_button(:category, 'drinks', style: 'display:none')
-        = f.label(:category_drinks, 'Drinks', class: 'btn btn-default btn-block btn-lg', id:'drinks_cat_button')
-    .row
-      %h3 SOMETIME BETWEEN
-      .col-xs-12.col-sm-5.form-group
-        = f.label :start_date
-        %br
-        = f.date_select(:start_date, :order => [:day, :month, :year])
-      .col-xs-12.col-sm-5
-        = f.label :end_date
-        %br
-        = f.date_select(:end_date, :order => [:day, :month, :year])
-      .col-xs-3.col-sm-1
-      .col-xs-6.col-sm-2
-        = f.label :start_time, 'At around'
-        = f.text_field :start_time, class: 'form-control', placeholder: '7:00 pm'
-    .row
-      %h3 WITH
-      = hidden_field_tag "event_suggestion[invitee_ids][]"
-      - @users_without_current_user.each do |invitee|
-        .checkbox-inline
-          = check_box_tag "event_suggestion[invitee_ids][]", invitee.id, @event_suggestion.invitees.include?(invitee), id: "invitation_ids_#{invitee.id}", style: 'display:none'
-          = f.label :invitee_ids, invitee.name || invitee.email, for: "invitation_ids_#{invitee.id}", class: 'btn btn-default btn-lg'
-    .row
-      =f.submit "BOOM", class: 'btn btn-primary btn-lg btn-block'
+.row
+  .col-xs-12.col-sm-12.col-md-12
+    - if @event_suggestion.errors.any?
+      %h4
+        Sorry, we found #{pluralize(@event_suggestion.errors.count, "error")}:
+      %ul.list-unstyled
+        -@event_suggestion.errors.each_with_index.each do |msg, i|
+          %li= msg[1]
+.row
+  .col-xs-12.col-md-6.col-md-offset-3.text-center
+    = form_for(@event_suggestion, html: {role: 'form'}) do |f|
+      .row
+        %h3 I WANT TO HAVE
+        .col-xs-6.new_event_category
+          = f.radio_button(:category, 'dinner', style: 'display:none', checked: 'checked')
+          = f.label(:category_dinner, 'Dinner', class: 'btn btn-default btn-block btn-lg', id:'dinner_cat_button')
+        .col-xs-6.new_event_category
+          = f.radio_button(:category, 'drinks', style: 'display:none')
+          = f.label(:category_drinks, 'Drinks', class: 'btn btn-default btn-block btn-lg', id:'drinks_cat_button')
+      .row
+        %h3 SOMETIME BETWEEN
+        .col-xs-12.col-sm-5.form-group
+          = f.label :start_date
+          %br
+          = f.date_select(:start_date, :order => [:day, :month, :year])
+        .col-xs-12.col-sm-5
+          = f.label :end_date
+          %br
+          = f.date_select(:end_date, :order => [:day, :month, :year])
+        .col-xs-3.col-sm-1
+        .col-xs-6.col-sm-2
+          = f.label :start_time, 'At around'
+          = f.text_field :start_time, class: 'form-control', placeholder: '7:00 pm'
+      .row
+        %h3 WITH
+        = hidden_field_tag "event_suggestion[invitee_ids][]"
+        - @users_without_current_user.each do |invitee|
+          .checkbox-inline
+            = check_box_tag "event_suggestion[invitee_ids][]", invitee.id, @event_suggestion.invitees.include?(invitee), id: "invitation_ids_#{invitee.id}", style: 'display:none'
+            = f.label :invitee_ids, invitee.name || invitee.email, for: "invitation_ids_#{invitee.id}", class: 'btn btn-default btn-lg'
+      .row
+        =f.submit "BOOM", class: 'btn btn-primary btn-lg btn-block'

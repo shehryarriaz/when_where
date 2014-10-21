@@ -4,10 +4,15 @@
 
 form.new_event_suggestion div, form.edit_event_suggestion div {
   margin: 10px 0;
-  input[type="radio"]:checked+label, input[type="checkbox"]:checked+label{
+  input[type="radio"]:checked+label#dinner_cat_button, input[type="checkbox"]:checked+label{
     background-color: rgb(66,139,202);
     color: white;
   }
+
+  input[type="radio"]:checked+label#drinks_cat_button {
+    background-color: rgb(217,83,79);
+    color: white;
+  }  
 }
 
 form#accept_suggestions_form{
