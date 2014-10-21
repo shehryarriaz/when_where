@@ -9,9 +9,23 @@
       .btn-group-vertical.event_list
         - @events_as_host.each do |event|
           - if event.category == "dinner"
-            = link_to @dinner_icon.html_safe + " #{event.name}", event, class: "btn btn-default btn-lg"
+            = link_to event, class: "btn btn-default btn-lg" do
+              %span.glyphicon.glyphicon-cutlery.list_icon
+              #{event.name}
+              %span.list_date
+                - if event.start_date == event.end_date
+                  #{event.start_date.strftime("%d %b")}
+                - else
+                  #{event.start_date.strftime("%d")} - #{event.end_date.strftime("%d %b")}
           - else
-            = link_to @drinks_icon.html_safe + " #{event.name}", event, class: "btn btn-default btn-lg"
+            = link_to event, class: "btn btn-default btn-lg" do
+              %span.glyphicon.glyphicon-glass.list_icon
+              #{event.name}
+              %span.list_date
+                - if event.start_date == event.end_date
+                  #{event.start_date.strftime("%d %b")}
+                - else
+                  #{event.start_date.strftime("%d")} - #{event.end_date.strftime("%d %b")}
   - else
     .col-xs-12.col-sm-12.col-md-12.text-center
       %h2 You're not hosting any events
