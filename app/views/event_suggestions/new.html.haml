@@ -33,13 +33,16 @@
           = f.text_field :start_time, class: 'form-control', placeholder: '7:00 pm'
       .row
         %h3 WITH
-        %div
+        .col-xs-12
           = text_field_tag :user_search, nil, class: 'search_input form-control', placeholder: "Add friends"
-        %div#search_users
-        / = hidden_field_tag "event_suggestion[invitee_ids][]"
-        / - @users_without_current_user.each do |invitee|
-        /   .checkbox-inline
-        /     = check_box_tag "event_suggestion[invitee_ids][]", invitee.id, @event_suggestion.invitees.include?(invitee), id: "invitation_ids_#{invitee.id}", style: 'display:none'
-        /     = f.label :invitee_ids, invitee.name || invitee.email, for: "invitation_ids_#{invitee.id}", class: 'btn btn-default btn-lg'
+        .col-xs-12#search_users
+        .col-xs-12
+          = hidden_field_tag "event_suggestion[invitee_ids][]"
+          - @users_without_current_user.each do |invitee|
+            .checkbox-inline
+              - if @event_suggestion.invited?(invitee) == true
+                = check_box_tag "event_suggestion[invitee_ids][]", invitee.id, @event_suggestion.invitees.include?(invitee), id: "invitation_ids_#{invitee.id}", style: 'display:none'
+                = f.label :invitee_ids, invitee.name || invitee.email, for: "invitation_ids_#{invitee.id}", class: 'btn btn-default btn-lg'
       .row
+        .col-xs-12
         =f.submit "BOOM", class: 'btn btn-primary btn-lg btn-block'

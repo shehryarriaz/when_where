@@ -17,6 +17,10 @@ class EventSuggestion < ActiveRecord::Base
   validate :check_event_has_start_time_if_finalised
   validate :check_event_has_date_if_finalised
 
+  def invited?(user)
+    invitees.include?(user)
+  end
+
   private
   def create_associated_events
     if !end_date
