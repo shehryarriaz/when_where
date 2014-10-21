@@ -61,6 +61,18 @@ a#home_signup_button {
 //   border: 2px solid rgb(217,83,79);
 // }
 
+#datepicker {
+  width: 100%;
+  input.form-control {
+    height: 60px;
+  }
+}
 
+#start_time {
+  input.form-control {
+    height: 60px;
+    text-align: center;
+  }
+}
 
 

@@ -19,16 +19,14 @@
           = f.label(:category_drinks, 'Drinks', class: 'btn btn-default btn-block btn-lg', id:'drinks_cat_button')
       .row
         %h3 SOMETIME BETWEEN
-        .col-xs-12.col-sm-5.form-group
+        .col-xs-12.col-sm-12.col-md-12
           .input-daterange.input-group#datepicker
-            %input{type:"text", class: "input-sm form-control", name: "event_suggestion[start_date]"}
-            %span.input-group-addon to
-            %input{type:"text", class:"input-sm form-control", name:"event_suggestion[end_date]"}
-
-          
-        .col-xs-6.col-sm-2
-          = f.label :start_time, 'At around'
-          = f.text_field :start_time, class: 'form-control', placeholder: '7:00 pm'
+            %input{type:"text", class: "form-control", name: "event_suggestion[start_date]", placeholder: 'dd/mm/yyyy *'}
+            %span.input-group-addon and
+            %input{type:"text", class: "form-control", name:"event_suggestion[end_date]", placeholder: 'dd/mm/yyyy'}
+        .col-xs-3.col-sm-4.col-md-4
+        .col-xs-6.col-sm-4.col-md-4#start_time
+          = f.text_field :start_time, class: 'form-control', placeholder: 'Add time?'
       .row
         %h3 WITH
         = hidden_field_tag "event_suggestion[invitee_ids][]"
