@@ -9,9 +9,17 @@
       .btn-group-vertical.event_list
         - @upcoming_events.each do |event|
           - if event.category == "dinner"
-            = link_to @dinner_icon.html_safe + " #{event.name}", event, class: "btn btn-default btn-lg"
+            = link_to event, class: "btn btn-default btn-lg" do
+              %span.glyphicon.glyphicon-cutlery.list_icon
+              #{event.name}
+              %span.list_date
+                #{event.date.strftime("%a %d %b")}
           - else
-            = link_to @drinks_icon.html_safe + " #{event.name}", event, class: "btn btn-default btn-lg"
+            = link_to event, class: "btn btn-default btn-lg" do
+              %span.glyphicon.glyphicon-glass.list_icon
+              #{event.name}
+              %span.list_date
+                #{event.date.strftime("%a %d %b")}
   - else
     .col-xs-12.col-sm-12.col-md-12.text-center
       %h2 
@@ -21,3 +29,7 @@
     .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
       .btn-group-vertical.event_list
         = link_to "Make it happen!", new_event_suggestion_path, class: "btn btn-default btn-lg"
+
+        / NOTES
+        / = link_to vote_cheerup_path(cheerup, direction: 'down'), method: :put, :id => "downvote_#{cheerup.id}" do
+        /     %i{class:"fa fa-thumbs-o-down"} #{cheerup.get_downvotes.size}
