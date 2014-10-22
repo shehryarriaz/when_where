@@ -24,7 +24,7 @@
     #add_event_venue_form
       %p#add_venue 
         %span.glyphicon.glyphicon-map-marker
-        Add a venue      
+        Add a venue
       = form_for(@event_venue, role: "form", id: 'add_event_venue') do |f|
         - if @venue.errors.any?
           %h4
@@ -40,7 +40,7 @@
           = text_field_tag :address, nil, id: "autocomplete", class: "form-control", placeholder: "Address"
         .form-group
           = text_field_tag :description, nil, class: "form-control", placeholder: "Description"
-        = submit_tag "Add a venue", class: "btn btn-primary btn-block"
+        = submit_tag "Add venue", class: "btn btn-primary btn-block"
   .col-xs-12.col-sm-6.col-md-1
   .col-xs-12.col-sm-6.col-md-7
     .row
@@ -69,8 +69,3 @@
                     - else
                       %p{ style: "display:inline"} #{choice.user.name || choice.user.email},
           = submit_tag "COUNT ME IN", class: "btn btn-primary btn-lg btn-block"
-          
-
-
-
-

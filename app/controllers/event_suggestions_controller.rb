@@ -136,10 +136,19 @@ class EventSuggestionsController < ApplicationController
 
   def finalise
     @event_suggestion = EventSuggestion.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @event_suggestion }
+    end
+  end
+
+  def finalise_submit
+    @event_suggestion = EventSuggestion.find(params[:id])
     @event_suggestion.status = "closed"
 
     respond_to do |format|
-      if @event_suggestion.save && @event_suggestion.update_attributes(params[:event_suggestion])
+      if @event_suggestion.update_attributes(params[:event_suggestion])
         format.html { redirect_to @event_suggestion, notice: 'This event has now been finalised. Invitees can no longer RSVP to the event.' }
         format.json { head :no_content }
       else
