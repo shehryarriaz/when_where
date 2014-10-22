@@ -22,7 +22,7 @@
         .row
           .col-xs-8.col-md-8.event_venue_name
             = link_to venue.venue.name, event_venue_path(venue)
-          .col-xs-2.col-md-2
+          .col-xs-2.col-md-2{id: "vote_link_event_venue_#{venue.id}"}
             - if !(@current_user.voted_for? venue)
               = link_to 'Like', vote_event_venue_path(venue, direction: 'like'), method: :put, class: 'like_venue_link'
             - else
