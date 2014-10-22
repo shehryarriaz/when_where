@@ -4,7 +4,7 @@ class EventSuggestionsController < ApplicationController
   load_and_authorize_resource
 
   def manage_events
-    @events_as_host = current_user.events_as_host
+    @events_as_host = (current_user.events_as_host).sort_by { |event| event.start_date }
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,7 +17,7 @@ class EventSuggestionsController < ApplicationController
     @events_as_invitee_closed = current_user.events_as_invitee.where(status: "closed")
     @event_choices = current_user.event_choices
     @events_responded_to_closed = (((@event_choices.collect { |choice| choice.event.event_suggestion }).uniq).collect { |event| event if event.status == "closed" }).compact
-    @upcoming_events = (@events_as_host_closed + @events_responded_to_closed).uniq
+    @upcoming_events = ((@events_as_host_closed + @events_responded_to_closed).uniq).sort_by { |event| event.date }
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,7 +29,7 @@ class EventSuggestionsController < ApplicationController
     @events_as_invitee = current_user.events_as_invitee
     @event_choices = current_user.event_choices
     @events_responded_to = (current_user.event_choices.collect { |choice| choice.event.event_suggestion }).uniq
-    @events_pending = @events_as_invitee - @events_responded_to
+    @events_pending = (@events_as_invitee - @events_responded_to).sort_by { |event| event.start_date }
 
     respond_to do |format|
       format.html # index.html.erb

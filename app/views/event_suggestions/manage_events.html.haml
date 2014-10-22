@@ -11,7 +11,10 @@
           - if event.category == "dinner"
             = link_to event, class: "btn btn-default btn-lg" do
               %span.glyphicon.glyphicon-cutlery.list_icon
-              #{event.name}
+              - if event.name.length > 12
+                #{event.name[0..11]}...
+              - else
+                #{event.name}
               %span.list_date
                 - if event.start_date == event.end_date
                   #{event.start_date.strftime("%d %b")}
@@ -20,7 +23,10 @@
           - else
             = link_to event, class: "btn btn-default btn-lg" do
               %span.glyphicon.glyphicon-glass.list_icon
-              #{event.name}
+              - if event.name.length > 12
+                #{event.name[0..11]}...
+              - else
+                #{event.name}
               %span.list_date
                 - if event.start_date == event.end_date
                   #{event.start_date.strftime("%d %b")}
@@ -28,7 +34,10 @@
                   #{event.start_date.strftime("%d")} - #{event.end_date.strftime("%d %b")}
   - else
     .col-xs-12.col-sm-12.col-md-12.text-center
-      %h2 You're not hosting any events
+      %h2
+        You're not hosting any events
+        %br
+        %small Bring everyone together
     .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
       .btn-group-vertical.event_list
         = link_to "Create one!", new_event_suggestion_path, class: "btn btn-default btn-lg"
