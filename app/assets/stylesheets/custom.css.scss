@@ -124,7 +124,7 @@ a#home_signup_button {
 }
 
 p#add_venue {
-  font-size: 1.4em;
+  font-size: 1.2em;
   cursor: pointer;
   color: rgb(65,138,200);
   margin: 20px 0;
@@ -137,4 +137,20 @@ form#new_event_venue {
 
 h3#events_index_heading {
   margin-bottom: 25px;
+}
+
+p.invitee {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+p#invited_heading {
+  font-size: 1.2em;
+  cursor: pointer;
+  color: rgb(65,138,200);
+  margin: 20px 0;
+}
+
+#invitee_list {
+  display: none;
 }

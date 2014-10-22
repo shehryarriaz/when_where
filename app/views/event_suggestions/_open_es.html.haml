@@ -13,6 +13,14 @@
       - if can? :update, @event_suggestion
         = link_to 'Edit event', edit_event_suggestion_path(@event_suggestion), class: 'btn btn-primary'
         = link_to 'Finalise event', finalise_event_suggestion_path(@event_suggestion), class: 'btn btn-primary'
+.row
+  .col-xs-12.col-sm-12.col-md-12#invitee_index 
+    %p#invited_heading
+      %span.glyphicon.glyphicon-user
+      Who's invited?
+    #invitee_list
+      - @invitees.each do |invitee|
+        %p.invitee #{invitee.name || invitee.email}
 .row#when_where_content
   .col-xs-12.col-sm-6.col-md-4
     #venue_index
