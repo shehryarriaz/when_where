@@ -20,7 +20,11 @@
             = link_to 'Unlike', vote_event_venue_path(venue, direction: 'unlike'), method: :put
         .col-md-1.pull-right
           = venue.get_upvotes.size
-    = form_for(@event_venue, role: "form") do |f|
+
+    %p#add_venue 
+      %span.glyphicon.glyphicon-map-marker
+      Add a venue      
+    = form_for(@event_venue, role: "form", id: 'add_event_venue') do |f|
       - if @venue.errors.any?
         %h4
           = pluralize(@venue.errors.count, "error")

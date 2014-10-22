@@ -100,3 +100,14 @@ a#home_signup_button {
   float: right;
 
 }
+
+p#add_venue {
+  font-size: 1.5em;
+  cursor: pointer;
+  color: rgb(65,138,200);
+  margin: 20px 0;
+}
+
+form#new_event_venue {
+  display: none;
+}
