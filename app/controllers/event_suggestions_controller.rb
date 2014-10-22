@@ -136,6 +136,8 @@ class EventSuggestionsController < ApplicationController
 
   def finalise
     @event_suggestion = EventSuggestion.find(params[:id])
+    @time = @event_suggestion.start_time.strftime("%I:%M") if @event_suggestion.start_time
+    @venues = @event_suggestion.venues
 
     respond_to do |format|
       format.html
