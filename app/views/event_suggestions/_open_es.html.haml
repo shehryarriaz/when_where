@@ -1,6 +1,13 @@
 .row#event_suggestion_heading
   .col-xs-12.col-sm-8.col-md-9.text-center
-    %h1#event_title #{@event_suggestion.name}
+    - if @event_suggestion.category == "dinner"
+      %h1#event_title
+        %span.glyphicon.glyphicon-cutlery.list_icon
+        #{@event_suggestion.name}
+    - else
+      %h1#event_title
+        %span.glyphicon.glyphicon-glass.list_icon
+        #{@event_suggestion.name}
   .col-xs-12.col-sm-4.col-md-3.text-center
     .btn-group#event_settings_group
       - if can? :update, @event_suggestion

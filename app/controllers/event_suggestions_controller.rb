@@ -138,6 +138,8 @@ class EventSuggestionsController < ApplicationController
     @event_suggestion = EventSuggestion.find(params[:id])
     @time = @event_suggestion.start_time.strftime("%I:%M") if @event_suggestion.start_time
     @venues = @event_suggestion.venues
+    @events_sorted = @event_suggestion.events.sort_by { |event| event.event_choices.length}
+    @optimal_event_date = @events_sorted.last.date.strftime("%d/%m/%Y")
 
     respond_to do |format|
       format.html
@@ -154,7 +156,7 @@ class EventSuggestionsController < ApplicationController
         format.html { redirect_to @event_suggestion, notice: 'This event has now been finalised. Invitees can no longer RSVP to the event.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to @event_suggestion, notice: 'Please make sure your event has a location, date and time.'}
+        format.html { redirect_to finalise_event_suggestion_path(@event_suggestion), notice: 'Please make sure your event has a location, date and time.'}
         format.json { render json: @event_suggestion.errors, status: :unprocessable_entity, notice: 'Sorry this event could not be finalised. Please try again.' }
       end
     end
