@@ -24,7 +24,8 @@ WhenWhere::Application.routes.draw do
     end
     member do
       post :accept_suggestions
-      put :finalise
+      get :finalise
+      put :finalise_submit
     end
   end
 end

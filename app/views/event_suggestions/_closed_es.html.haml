@@ -1,6 +1,13 @@
 .row
   .col-xs-12.col-sm-6.col-md-6
-    %h2 #{@event_suggestion.name}
+    - if @event_suggestion.category == "dinner"
+      %h2#event_title
+        %span.glyphicon.glyphicon-cutlery.list_icon
+        #{@event_suggestion.name}
+    - else
+      %h2#event_title
+        %span.glyphicon.glyphicon-glass.list_icon
+        #{@event_suggestion.name}
     %h2
       %small Hosted by: #{@event_suggestion.host.name || @event_suggestion.host.email}
     %br
