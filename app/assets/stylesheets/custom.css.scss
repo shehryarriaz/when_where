@@ -75,10 +75,66 @@ a#home_signup_button {
   }
 }
 
+.event_date_row {
+  border-bottom: 1px solid rgb(231,231,231);
+}
+
+.date_option {
+  width: 50%;
+}
+#event_suggestion_heading {
+  #event_title {
+    float: left;
+  }
+  #event_settings_group {
+    margin-top: 20px;
+  }
+  margin-bottom: 20px;
+}
+
+#when_where_content {
+  margin-bottom: 25px;
+}
+
+
 .list_icon {
   float: left;
 }
 
 .list_date {
   float: right;
+}
+
+#venue_index {
+  h3#venue_index_heading {
+    margin-bottom: 25px;
+  }
+  margin-bottom: 40px;
+  .row {
+    border: 1px solid rgb(231,231,231);
+    padding: 15px 5px;
+    margin-left: 0;
+    margin-right: 0;
+    .event_venue_name {
+      padding: 0;
+      font-size: 1.3em;
+    }
+
+  }
+}
+
+p#add_venue {
+  font-size: 1.4em;
+  cursor: pointer;
+  color: rgb(65,138,200);
+  margin: 20px 0;
+}
+
+form#new_event_venue {
+  display: none;
+  margin-bottom: 15px;
+}
+
+h3#events_index_heading {
+  margin-bottom: 25px;
 }
