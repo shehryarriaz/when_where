@@ -16,6 +16,11 @@ form.new_event_suggestion div, form.edit_event_suggestion div {
 }
 
 form#accept_suggestions_form{
+
+  input[type="checkbox"]+label{
+    border-radius: 0;
+    height: 100%;
+  }
   input[type="checkbox"]:checked+label{
     background-color: rgb(66,139,202);
     color: white;
