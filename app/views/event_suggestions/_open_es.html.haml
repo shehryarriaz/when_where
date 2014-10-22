@@ -1,11 +1,18 @@
 .row#event_suggestion_heading
   .col-xs-12.col-sm-8.col-md-9.text-center
-    %h1#event_title #{@event_suggestion.name}
+    - if @event_suggestion.category == "dinner"
+      %h1#event_title
+        %span.glyphicon.glyphicon-cutlery.list_icon
+        #{@event_suggestion.name}
+    - else
+      %h1#event_title
+        %span.glyphicon.glyphicon-glass.list_icon
+        #{@event_suggestion.name}
   .col-xs-12.col-sm-4.col-md-3.text-center
     .btn-group#event_settings_group
       - if can? :update, @event_suggestion
         = link_to 'Edit event', edit_event_suggestion_path(@event_suggestion), class: 'btn btn-primary'
-        = link_to 'Finalise event', finalise_event_suggestion_path(@event_suggestion), method: :put, class: 'btn btn-primary', data: { confirm: 'Location, date and time all set?' }
+        = link_to 'Finalise event', finalise_event_suggestion_path(@event_suggestion), class: 'btn btn-primary'
 .row
   .col-xs-12.col-sm-12.col-md-12#invitee_index 
     %p#invited_heading
@@ -14,6 +21,7 @@
     #invitee_list
       - @invitees.each do |invitee|
         %p.invitee #{invitee.name || invitee.email}
+>>>>>>> master
 .row#when_where_content
   .col-xs-12.col-sm-6.col-md-4
     #venue_index
@@ -32,7 +40,7 @@
     #add_event_venue_form
       %p#add_venue 
         %span.glyphicon.glyphicon-map-marker
-        Add a venue      
+        Add a venue
       = form_for(@event_venue, role: "form", id: 'add_event_venue') do |f|
         - if @venue.errors.any?
           %h4
@@ -48,7 +56,7 @@
           = text_field_tag :address, nil, id: "autocomplete", class: "form-control", placeholder: "Address"
         .form-group
           = text_field_tag :description, nil, class: "form-control", placeholder: "Description"
-        = submit_tag "Add a venue", class: "btn btn-primary btn-block"
+        = submit_tag "Add venue", class: "btn btn-primary btn-block"
   .col-xs-12.col-sm-6.col-md-1
   .col-xs-12.col-sm-6.col-md-7
     .row
@@ -77,8 +85,3 @@
                     - else
                       %p{ style: "display:inline"} #{choice.user.name || choice.user.email},
           = submit_tag "COUNT ME IN", class: "btn btn-primary btn-lg btn-block"
-          
-
-
-
-
