@@ -24,10 +24,10 @@
             = link_to venue.venue.name, event_venue_path(venue)
           .col-xs-2.col-md-2
             - if !(@current_user.voted_for? venue)
-              = link_to 'Like', vote_event_venue_path(venue, direction: 'like'), method: :put
+              = link_to 'Like', vote_event_venue_path(venue, direction: 'like'), method: :put, class: 'like_venue_link'
             - else
-              = link_to 'Unlike', vote_event_venue_path(venue, direction: 'unlike'), method: :put
-          .col-xs-1.col-md-1.pull-right
+              = link_to 'Unlike', vote_event_venue_path(venue, direction: 'unlike'), method: :put, class: 'unlike_venue_link'
+          .col-xs-1.col-md-1.pull-right{id: "likes_event_venue_#{venue.id}"}
             = venue.get_upvotes.size
     #add_event_venue_form
       %p#add_venue 
