@@ -10,16 +10,17 @@
   .col-xs-12.col-md-6.col-md-offset-3.text-center
     = form_for(@event_suggestion, html: {role: 'form'}) do |f|
       .row
-        %h3 I WANT TO HAVE
-        .col-xs-6.new_event_category
-          = f.radio_button(:category, 'dinner', style: 'display:none', checked: 'checked')
-          = f.label(:category_dinner, 'Dinner', class: 'btn btn-default btn-block btn-lg', id:'dinner_cat_button')
-        .col-xs-6.new_event_category
-          = f.radio_button(:category, 'drinks', style: 'display:none')
-          = f.label(:category_drinks, 'Drinks', class: 'btn btn-default btn-block btn-lg', id:'drinks_cat_button')
-      .row
-        %h3 SOMETIME BETWEEN
         .col-xs-12.col-sm-12.col-md-12
+          %h3.new_form_heading I WANT TO HAVE
+          .col-xs-6.new_event_category
+            = f.radio_button(:category, 'dinner', style: 'display:none', checked: 'checked')
+            = f.label(:category_dinner, 'Dinner', class: 'btn btn-default btn-block btn-lg', id:'dinner_cat_button')
+          .col-xs-6.new_event_category
+            = f.radio_button(:category, 'drinks', style: 'display:none')
+            = f.label(:category_drinks, 'Drinks', class: 'btn btn-default btn-block btn-lg', id:'drinks_cat_button')
+      .row
+        .col-xs-12.col-sm-12.col-md-12
+          %h3.new_form_heading SOMETIME BETWEEN
           .input-daterange.input-group#datepicker
             %input{type:"text", class: "form-control", name: "event_suggestion[start_date]", placeholder: 'dd/mm/yyyy *'}
             %span.input-group-addon and
@@ -28,8 +29,8 @@
         .col-xs-6.col-sm-4.col-md-4#start_time
           = f.text_field :start_time, class: 'form-control', placeholder: 'Add time?'
       .row
-        %h3 WITH
-        .col-xs-12
+        .col-xs-12.col-sm-12.col-md-12
+          %h3.new_form_heading WITH
           = text_field_tag :user_search, nil, class: 'search_input form-control', placeholder: "Add friends"
         .col-xs-12#search_users
         .col-xs-12
@@ -40,5 +41,5 @@
                 = check_box_tag "event_suggestion[invitee_ids][]", invitee.id, @event_suggestion.invitees.include?(invitee), id: "invitation_ids_#{invitee.id}", style: 'display:none'
                 = f.label :invitee_ids, invitee.name || invitee.email, for: "invitation_ids_#{invitee.id}", class: 'btn btn-default btn-lg'
       .row
-        .col-xs-12
-        =f.submit "BOOM", class: 'btn btn-primary btn-lg btn-block'
+        .col-xs-12.col-sm-12.col-md-12
+          =f.submit "Go on then", class: 'btn btn-primary btn-lg btn-block'

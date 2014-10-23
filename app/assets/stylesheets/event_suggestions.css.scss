@@ -3,7 +3,6 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 form.new_event_suggestion div, form.edit_event_suggestion div {
-  margin: 10px 0;
   input[type="radio"]:checked+label#dinner_cat_button, input[type="checkbox"]:checked+label{
     background-color: rgb(66,139,202);
     color: white;
@@ -15,6 +14,12 @@ form.new_event_suggestion div, form.edit_event_suggestion div {
   }  
 }
 
+form.new_event_suggestion div {
+  margin: 5px 0;
+}
+form.edit_event_suggestion div {
+  margin: 5px 0;
+}
 form#accept_suggestions_form{
 
   input[type="checkbox"]+label{

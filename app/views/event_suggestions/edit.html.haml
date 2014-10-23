@@ -1,51 +1,54 @@
 .row
-  .col-md-2
-  .col-xs-12.col-md-8
-    %h2 Edit your event
-    = form_for(@event_suggestion, html: {role: 'form'}) do |f|
-      - if @event_suggestion.errors.any?
-        %h4
-          = pluralize(@event_suggestion.errors.count, "error")
-          prohibited this event from being saved:
-        %ul
-        -@event_suggestion.errors.full_messages.each do |msg|
-          %li= msg
-      .row
-        = f.label :name
-        = f.text_field :name, class: 'form-control'
-        %h4 You're inviting people for
-        .col-xs-6
-          = f.radio_button(:category, 'dinner', style: 'display:none')
-          = f.label(:category_dinner, 'Dinner', class: 'btn btn-default btn-block btn-lg')
-        .col-xs-6
-          = f.radio_button(:category, 'drinks', style: 'display:none')
-          = f.label(:category_drinks, 'Drinks', class: 'btn btn-default btn-block btn-lg')
-      .row.form-group
-        %h3 AT
-        = f.text_field :location, class: 'form-control', placeholder: 'The best venue ever'
-      .row
-        %h3 SOMETIME BETWEEN
-        .col-xs-12.col-sm-6
-          = f.label :start_date
-          %br
-          = f.date_select(:start_date, :order => [:day, :month, :year])
-          %br
-          = f.label :end_date
-          %br
-          = f.date_select(:end_date, :order => [:day, :month, :year])
-          %br
-        .col-xs-12.col-sm-6.form-group
-          =f.label :date
-          = f.date_select(:date, :order => [:day, :month, :year])
-        .col-xs-12.col-sm-6
-          = f.label :start_time, 'At around'
-          = f.text_field :start_time, class: 'form-control', placeholder: '7:00 pm'
-      .row
-        %h3 WITH
-        = hidden_field_tag "event_suggestion[invitee_ids][]"
-        - @users_without_current_user.each do |invitee|
-          .checkbox-inline
-            = check_box_tag "event_suggestion[invitee_ids][]", invitee.id, @event_suggestion.invitees.include?(invitee), id: "invitation_ids_#{invitee.id}", style: 'display:none'
-            = f.label :invitee_ids, invitee.name || invitee.email, for: "invitation_ids_#{invitee.id}", class: 'btn btn-default btn-lg'
-      .row
-        =f.submit "UPDATE", class: 'btn btn-primary btn-lg btn-block'
+  .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
+    .row
+      .col-xs-12.col-sm-12.col-md-12
+        %h2 Edit #{@event_suggestion.name}
+        %p.lead The most popular venue and date are populated below
+    .row
+      = form_for(@event_suggestion, html: {role: 'form'}) do |f|
+        - if @event_suggestion.errors.any?
+          %h4
+            = pluralize(@event_suggestion.errors.count, "error")
+            prohibited this event from being saved:
+          %ul
+          -@event_suggestion.errors.full_messages.each do |msg|
+            %li= msg
+        .row
+          .col-xs-12.col-sm-12.col-md-12
+            = f.text_field :name, class: 'form-control edit_name_field'
+            %h3 You're inviting people for
+          .col-xs-6.col-sm-6.col-md-6#edit_event_category_dinner
+            = f.radio_button(:category, 'dinner', style: 'display:none')
+            = f.label(:category_dinner, 'Dinner', class: 'btn btn-default btn-block btn-lg', id:'dinner_cat_button')
+          .col-xs-6.col-sm-6.col-md-6#edit_event_category_drinks
+            = f.radio_button(:category, 'drinks', style: 'display:none')
+            = f.label(:category_drinks, 'Drinks', class: 'btn btn-default btn-block btn-lg', id:'drinks_cat_button')
+        .row
+          .col-xs-12.col-sm-12.col-md-12.form-group
+            %h3.edit_form_heading Venue
+            = f.collection_select(:location, @venues, :id, :name, {}, {class: "form-control"})
+        .row
+          .col-xs-12.col-sm-12.col-md-12.form-group
+            %h3.edit_form_heading Date & Time
+            .col-xs-8.col-sm-8.col-md-8.edit_date
+              .input-daterange.input-group#datepicker
+                %input{type:"text", class: "form-control edit_event_date", name: "event_suggestion[date]", placeholder: 'dd/mm/yyyy *', value: @optimal_event_date}
+            .col-xs-4.col-sm-4.col-md-4.edit_time
+              = f.text_field :start_time, class: 'form-control edit_event_time', placeholder: '7:00 pm'
+        .row
+          .col-xs-12
+            %h3.edit_form_heading Who's invited
+            = text_field_tag :user_search, nil, class: 'search_input form-control', placeholder: "Add friends"
+          .col-xs-12#search_users
+          .col-xs-12
+            = hidden_field_tag "event_suggestion[invitee_ids][]"
+            - @users_without_current_user.each do |invitee|
+              .checkbox-inline
+                - if @event_suggestion.invited?(invitee) == true
+                  = check_box_tag "event_suggestion[invitee_ids][]", invitee.id, @event_suggestion.invitees.include?(invitee), id: "invitation_ids_#{invitee.id}", style: 'display:none'
+                  = f.label :invitee_ids, invitee.name || invitee.email, for: "invitation_ids_#{invitee.id}", class: 'btn btn-default btn-lg'
+        .row
+          .col-xs-12.col-sm-12.col-md-12
+            =f.submit "Update", class: 'btn btn-primary btn-lg btn-block', id: 'form_submit_button'
+    
+    = link_to "Back", @event_suggestion, class: "btn btn-default btn-lg", id: 'back_button'
