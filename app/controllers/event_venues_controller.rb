@@ -69,7 +69,7 @@ class EventVenuesController < ApplicationController
     respond_to do |format|
       if @event_venue.save
         format.html { redirect_to @event_suggestion}
-        format.json { head :no_content }
+        format.json { render json: @event_venue.votes_for.size}
       else
         format.html { redirect_to @event_suggestion, notice: 'Sorry, something went wrong. Please try voting again'}
         format.json { render json: @event_venue.errors, status: :unprocessable_entity }
