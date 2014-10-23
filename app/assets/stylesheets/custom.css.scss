@@ -2,13 +2,14 @@ body {
   padding-bottom: 40px;
 }
 
-#map-canvas {
+#map-canvas, #map-canvas-final {
   height: 30em;
   width: 100%;
 }
 
 .btn-group-vertical.event_list {
   width: 100%;
+  margin: 10px 0 40px 0;
 }
 
 .divider {
@@ -100,6 +101,16 @@ a#home_signup_button {
     margin-top: 20px;
   }
   margin-bottom: 20px;
+}
+
+#event_title {
+  float: left;
+  span {
+    margin-right: 5px;
+  }
+  .list_icon {
+    float: none;
+  }
 }
 
 #when_where_content {

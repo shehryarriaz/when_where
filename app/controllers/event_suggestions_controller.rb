@@ -65,6 +65,7 @@ class EventSuggestionsController < ApplicationController
     @max_response_count = @events.map {|e| e.event_choices.length}.max
     @popular_events = @events.select{ |e| e.event_choices.length == @max_response_count }
     @chosen_event = @events.where(date: @event_suggestion.date).first
+    @location = Venue.find(@event_suggestion.location) if @event_suggestion.location
 
     respond_to do |format|
       format.html # show.html.erb
