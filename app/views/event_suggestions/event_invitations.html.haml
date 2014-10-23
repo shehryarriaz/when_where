@@ -2,7 +2,7 @@
   - if @events_pending.any?
     .col-xs-12.col-sm-12.col-md-12.text-center
       %h2 
-        Invitations
+        Invitations pending
         %br
         %small Don't miss out, respond to your invites
     .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
@@ -36,9 +36,43 @@
   - else
     .col-xs-12.col-sm-12.col-md-12.text-center
       %h2
-        Not that popular, huh?
+        No invitations
         %br
-        %small Or maybe your friends are just lazy
+        %small It's okay, we all have lazy friends
     .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
       .btn-group-vertical.event_list
-        = link_to "Create an event of your own!", new_event_suggestion_path, class: "btn btn-default btn-lg"
+        = link_to "Host an event and invite them!", new_event_suggestion_path, class: "btn btn-default btn-lg"
+  .row
+    - if @events_responded_to.any?
+      .col-xs-12.col-sm-12.col-md-12.text-center
+        %h2 
+          Invitations responded to
+          %br
+          %small Check Upcoming for events that have been finalised
+      .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
+        .btn-group-vertical.event_list
+          - @events_responded_to.each do |event|
+            - if event.category == "dinner"
+              = link_to event, class: "btn btn-default btn-lg" do
+                %span.glyphicon.glyphicon-cutlery.list_icon
+                - if event.name.length > 12
+                  #{event.name[0..11]}...
+                - else
+                  #{event.name}
+                %span.list_date
+                  - if event.start_date == event.end_date
+                    #{event.start_date.strftime("%d %b")}
+                  - else
+                    #{event.start_date.strftime("%d")} - #{event.end_date.strftime("%d %b")}
+            - else
+              = link_to event, class: "btn btn-default btn-lg" do
+                %span.glyphicon.glyphicon-glass.list_icon
+                - if event.name.length > 12
+                  #{event.name[0..11]}...
+                - else
+                  #{event.name}
+                %span.list_date
+                  - if event.start_date == event.end_date
+                    #{event.start_date.strftime("%d %b")}
+                  - else
+                    #{event.start_date.strftime("%d")} - #{event.end_date.strftime("%d %b")}
