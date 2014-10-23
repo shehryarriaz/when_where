@@ -17,7 +17,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @user_array = [current_user]
+    @users = User.all - @user_array
     @users_json = @users.collect { |user| {id: user.id, name: user.name} }
 
     respond_to do |format|
