@@ -8,4 +8,13 @@ $(function(){
     $('#invitee_list').slideToggle(200, function(){});
   });
 
+  
+  $("form").keypress(function(e) {
+    //Enter key
+    if (e.which == 13) {
+      return false;
+    }
+  });
+  
+
 });

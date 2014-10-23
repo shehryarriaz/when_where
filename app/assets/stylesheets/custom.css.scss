@@ -214,3 +214,23 @@ input.form-control.edit_event_time {
 #back_button  {
   margin-top:  10px;
 }
+
+.event_suggestion_name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  width: 50%;
+  margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+

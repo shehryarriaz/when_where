@@ -15,11 +15,13 @@ class EventVenuesController < ApplicationController
     @event_suggestion = EventSuggestion.find(params[:event_suggestion_id])
     @name = params[:name]
     @address = params[:address]
+    @description = params[:description]
     @venue = Venue.find_or_create_by_name_and_address(@name, @address)
-    
     respond_to do |format|
       if @venue.save
         @event_venue = EventVenue.find_or_create_by_event_suggestion_id_and_venue_id(@event_suggestion.id, @venue.id)
+        @event_venue.description = @description
+        @event_venue.save
         format.html { redirect_to @event_venue, notice: 'Venue added.' }
         format.json { render json: @venue }
       else

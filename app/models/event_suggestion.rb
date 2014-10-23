@@ -17,6 +17,7 @@ class EventSuggestion < ActiveRecord::Base
   validate :check_event_has_location_if_finalised
   validate :check_event_has_start_time_if_finalised
   validate :check_event_has_date_if_finalised
+  validate :check_date_range_is_max_7_days
 
   def invited?(user)
     invitees.include?(user)
@@ -26,6 +27,13 @@ class EventSuggestion < ActiveRecord::Base
   def check_end_date_is_later_than_start_date
     if end_date
       errors.add(:base, "End date can't be earlier than the start date! That just doesn't make sense... ") unless end_date >= start_date
+    end
+  end
+
+  private
+  def check_date_range_is_max_7_days
+    if end_date
+      errors.add(:base, "Sorry the maximum date range is 7 days") unless (end_date - start_date).to_i <= 7 
     end
   end
 
@@ -43,21 +51,21 @@ class EventSuggestion < ActiveRecord::Base
   private
   def check_event_has_location_if_finalised
     if status == 'closed'
-      errors.add(:base, "Sorry, this event must have a location") unless location.present?
+      errors.add(:base, "This event must have a location") unless location.present?
     end
   end
 
   private
   def check_event_has_start_time_if_finalised
     if status == 'closed'
-      errors.add(:base, "Sorry, this event must have a start time") unless start_time
+      errors.add(:base, "This event must have a start time") unless start_time
     end
   end
 
   private
   def check_event_has_date_if_finalised
     if status == 'closed'
-      errors.add(:base, "Sorry, this event must have a date") unless date
+      errors.add(:base, "This event must have a date") unless date
     end
   end
 
