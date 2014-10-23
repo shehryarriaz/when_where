@@ -26,6 +26,9 @@ class Ability
       can :accept_suggestions, EventSuggestion do |event_suggestion|
         user.invitations.where(event_suggestion_id: event_suggestion.id).any? && event_suggestion.status == 'open'
       end
+      can :accept_suggestions, EventSuggestion do |event_suggestion|
+        event_suggestion.host.id == user.id && event_suggestion.status == 'open'
+      end
     else
       can :create, User
     end
