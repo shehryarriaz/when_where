@@ -29,23 +29,30 @@
       %span.glyphicon.glyphicon-user
       Who's invited?
     #invitee_list
-      - @invitees.each do |invitee|
-        %p.invitee #{invitee.name || invitee.email}
+      - if @invitees.any?
+        - @invitees.each do |invitee|
+          %p.invitee #{invitee.name || invitee.email}
+      - else
+        %p No one at the moment.
+      %p= link_to "Invite more people!", edit_event_suggestion_path(@event_suggestion) if can? :update, @event_suggestion
 .row#when_where_content
   .col-xs-12.col-sm-6.col-md-4
     #venue_index
       %h3#venue_index_heading Where should we go?
-      - @event_venues.each do |venue|
-        .row
-          .col-xs-8.col-md-8.event_venue_name
-            = link_to venue.venue.name, event_venue_path(venue)
-          .col-xs-2.col-md-2{id: "vote_link_event_venue_#{venue.id}"}
-            - if !(@current_user.voted_for? venue)
-              = link_to 'Like', vote_event_venue_path(venue, direction: 'like'), method: :put, class: 'like_venue_link'
-            - else
-              = link_to 'Unlike', vote_event_venue_path(venue, direction: 'unlike'), method: :put, class: 'unlike_venue_link'
-          .col-xs-1.col-md-1.pull-right{id: "likes_event_venue_#{venue.id}"}
-            = venue.get_upvotes.size
+      - if @event_venues.empty?
+        %p No venues here yet. Add one below!
+      - else
+        - @event_venues.each do |venue|
+          .row
+            .col-xs-8.col-md-8.event_venue_name
+              = link_to venue.venue.name, event_venue_path(venue)
+            .col-xs-2.col-md-2{id: "vote_link_event_venue_#{venue.id}"}
+              - if !(@current_user.voted_for? venue)
+                = link_to 'Like', vote_event_venue_path(venue, direction: 'like'), method: :put, class: 'like_venue_link'
+              - else
+                = link_to 'Unlike', vote_event_venue_path(venue, direction: 'unlike'), method: :put, class: 'unlike_venue_link'
+            .col-xs-1.col-md-1.pull-right{id: "likes_event_venue_#{venue.id}"}
+              = venue.get_upvotes.size
     #add_event_venue_form
       %p#add_venue 
         %span.glyphicon.glyphicon-map-marker
