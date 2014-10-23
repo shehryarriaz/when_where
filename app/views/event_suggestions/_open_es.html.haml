@@ -1,6 +1,6 @@
 .row#event_suggestion_heading
   .col-xs-12.col-sm-6.col-md-7.text-center
-    -if @event_suggestion.name
+    -if @event_suggestion.name && @event_suggestion.name != ""
       - if @event_suggestion.category == "dinner"
         %h1#event_title
           %span.glyphicon.glyphicon-cutlery.list_icon
