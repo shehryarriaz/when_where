@@ -88,6 +88,10 @@ class EventSuggestionsController < ApplicationController
   def edit
     @event_suggestion = EventSuggestion.find(params[:id])
     @users_without_current_user = User.find(:all, :conditions => ["id != ?", current_user.id])
+    @time = @event_suggestion.start_time.strftime("%I:%M") if @event_suggestion.start_time
+    @venues = @event_suggestion.venues
+    @events_sorted = @event_suggestion.events.sort_by { |event| event.event_choices.length}
+    @optimal_event_date = @events_sorted.last.date.strftime("%d/%m/%Y")
   end
 
   # POST /event_suggestions

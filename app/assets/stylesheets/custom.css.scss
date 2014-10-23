@@ -1,3 +1,7 @@
+body {
+  padding-bottom: 40px;
+}
+
 #map-canvas {
   height: 30em;
   width: 100%;
@@ -133,7 +137,7 @@ a#home_signup_button {
     margin-left: 0;
     margin-right: 0;
     .event_venue_name {
-      padding: 0;
+      padding: 0 5px;
       font-size: 1.3em;
     }
 
@@ -170,4 +174,43 @@ p#invited_heading {
 
 #invitee_list {
   display: none;
+}
+
+.form-control.edit_name_field {
+  height: 50px;
+  margin-bottom: 25px;
+}
+
+#edit_event_category_dinner {
+  padding-right: 0;
+}
+#edit_event_category_drinks {
+  padding-left: 0;
+}
+
+.edit_form_heading, .new_form_heading {
+  margin-bottom: 15px;
+}
+
+input.form-control.edit_event_time {
+  height: 60px;
+  margin: 5px 0;
+}
+
+.edit_date {
+  padding-left: 0;
+  // margin-top: 0;
+}
+
+.edit_time {
+  padding-right: 0;
+  // margin-top: 0;
+}
+
+#form_submit_button {
+  margin-top: 40px;
+}
+
+#back_button  {
+  margin-top:  10px;
 }

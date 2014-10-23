@@ -1,10 +1,10 @@
 
 .row
-  .col-xs-12.col-md-6.col-md-offset-3
+  .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
     %h2 Finalise #{@event_suggestion.name}
     %p.lead The most popular venue and date are populated below
 .row
-  .col-xs-12.col-md-6.col-md-offset-3.text-center
+  .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
     = form_tag(finalise_submit_event_suggestion_path(@event_suggestion), method: :put, html: {role: 'form'}) do |f|
       - if @event_suggestion.errors.any?
         %h4
@@ -14,10 +14,12 @@
         - @event_suggestion.errors.full_messages.each do |msg|
           %li= msg
       .form-group
+        %h3.edit_form_heading Venue
         = collection_select(:event_suggestion, :location, @venues, :id, :name, {}, {class: "form-control"})
       .form-group
+        %h3.edit_form_heading Date & Time
         = text_field_tag "event_suggestion[start_time]", @time, class: "form-control", placeholder: "Event time *"
       .input-daterange.input-group#datepicker
         %input{type:"text", class: "form-control", name: "event_suggestion[date]", placeholder: 'dd/mm/yyyy *', value: @optimal_event_date}
-      = submit_tag "Finalise event", class: "btn btn-primary btn-lg btn-block"
-    = link_to "Back", @event_suggestion, class: "btn btn-default btn-lg"
+      = submit_tag "Finalise event", class: "btn btn-primary btn-lg btn-block", id: 'form_submit_button'
+    = link_to "Back", @event_suggestion, class: "btn btn-default btn-lg ", id: 'back_button'
