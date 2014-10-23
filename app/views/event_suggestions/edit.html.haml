@@ -15,7 +15,7 @@
             %li= msg
         .row
           .col-xs-12.col-sm-12.col-md-12
-            = f.text_field :name, class: 'form-control edit_name_field'
+            = f.text_field :name, class: 'form-control edit_name_field', placeholder: 'Event name'
             %h3 You're inviting people for
           .col-xs-6.col-sm-6.col-md-6#edit_event_category_dinner
             = f.radio_button(:category, 'dinner', style: 'display:none')
@@ -26,15 +26,18 @@
         .row
           .col-xs-12.col-sm-12.col-md-12.form-group
             %h3.edit_form_heading Venue
-            = f.collection_select(:location, @venues, :id, :name, {}, {class: "form-control"})
+            - if @venues.any?
+              = f.collection_select(:location, @venues, :id, :name, {}, {class: "form-control"})
+            - else
+              Sorry you don't have any venues to choose from yet. Add one on your #{link_to "event page", @event_suggestion}!
         .row
           .col-xs-12.col-sm-12.col-md-12.form-group
             %h3.edit_form_heading Date & Time
-            .col-xs-8.col-sm-8.col-md-8.edit_date
+            .col-xs-6.col-sm-8.col-md-8.edit_date
               .input-daterange.input-group#datepicker
                 %input{type:"text", class: "form-control edit_event_date", name: "event_suggestion[date]", placeholder: 'dd/mm/yyyy *', value: @optimal_event_date}
-            .col-xs-4.col-sm-4.col-md-4.edit_time
-              = f.text_field :start_time, class: 'form-control edit_event_time', placeholder: '7:00 pm'
+            .col-xs-6.col-sm-4.col-md-4.edit_time
+              = f.text_field :start_time, class: 'form-control edit_event_time', placeholder: '7:00 pm or 19:00'
         .row
           .col-xs-12
             %h3.edit_form_heading Who's invited

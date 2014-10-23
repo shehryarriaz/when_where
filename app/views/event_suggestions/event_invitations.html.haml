@@ -11,24 +11,26 @@
           - if event.category == "dinner"
             = link_to event, class: "btn btn-default btn-lg" do
               %span.glyphicon.glyphicon-cutlery.list_icon
-              - if event.name.length > 12
-                #{event.name[0..11]}...
-              - else
-                #{event.name}
+              .event_suggestion_name
+                - if event.name
+                  #{event.name}
+                - else
+                  #{event.host.name}
               %span.list_date
-                - if event.start_date == event.end_date
+                - if !event.end_date || event.start_date == event.end_date
                   #{event.start_date.strftime("%d %b")}
                 - else
                   #{event.start_date.strftime("%d")} - #{event.end_date.strftime("%d %b")}
           - else
             = link_to event, class: "btn btn-default btn-lg" do
               %span.glyphicon.glyphicon-glass.list_icon
-              - if event.name.length > 12
-                #{event.name[0..11]}...
-              - else
-                #{event.name}
+              .event_suggestion_name
+                - if event.name
+                  #{event.name}
+                - else
+                  #{event.host.name}
               %span.list_date
-                - if event.start_date == event.end_date
+                - if !event.end_date || event.start_date == event.end_date
                   #{event.start_date.strftime("%d %b")}
                 - else
                   #{event.start_date.strftime("%d")} - #{event.end_date.strftime("%d %b")}

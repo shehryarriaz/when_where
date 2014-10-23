@@ -1,24 +1,27 @@
 
 .row
   .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
+    - if @event_suggestion.errors.any?
+      %h4
+        Sorry, we found #{pluralize(@event_suggestion.errors.count, "error")}:
+      %ul.list-unstyled
+        -@event_suggestion.errors.each_with_index.each do |msg, i|
+          %li= msg[1]
     %h2 Finalise #{@event_suggestion.name}
     %p.lead The most popular venue and date are populated below
 .row
   .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
     = form_tag(finalise_submit_event_suggestion_path(@event_suggestion), method: :put, html: {role: 'form'}) do |f|
-      - if @event_suggestion.errors.any?
-        %h4
-          = pluralize(@event_suggestion.errors.count, "error")
-          prohibited this event_suggestion from being saved:
-        %ul
-        - @event_suggestion.errors.full_messages.each do |msg|
-          %li= msg
       .form-group
         %h3.edit_form_heading Venue
-        = collection_select(:event_suggestion, :location, @venues, :id, :name, {}, {class: "form-control"})
+        - if @venues.any?
+          = collection_select(:event_suggestion, :location, @venues, :id, :name, {}, {class: "form-control"})
+        - else
+          Sorry you don't have any venues to choose from yet. Add one on your #{link_to "event page", @event_suggestion}!
+        
       .form-group
         %h3.edit_form_heading Date & Time
-        = text_field_tag "event_suggestion[start_time]", @time, class: "form-control", placeholder: "Event time *"
+        = text_field_tag "event_suggestion[start_time]", @time, class: "form-control", placeholder: "7:00 pm or 19:00"
       .input-daterange.input-group#datepicker
         %input{type:"text", class: "form-control", name: "event_suggestion[date]", placeholder: 'dd/mm/yyyy *', value: @optimal_event_date}
       = submit_tag "Finalise event", class: "btn btn-primary btn-lg btn-block", id: 'form_submit_button'
