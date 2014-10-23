@@ -228,11 +228,16 @@ nav.navbar.navbar-default.footer {
   margin-top: 40px;
 }
 
+.status_finalised {
+  color: #418AC8;
+}
 
+.finalised-link {
+  background-color: #418AC8;
+  color: #FFFFFF;
+}
 
-
-
-
-
-
-
+.finalised-link:hover {
+  background-color: #5BA4E2;
+  color: #FFFFFF;
+}
