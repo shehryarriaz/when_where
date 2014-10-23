@@ -16,7 +16,7 @@ eventVenueMap.initialize = function() {
         type: 'GET',
         dataType: 'JSON',
         success: function(data) {
-          var venueId = data.venue_id;
+          var venueId = parseInt(data.venue_id);
           $.ajax({
             url: '/venues/' + venueId,
             type: 'GET',
