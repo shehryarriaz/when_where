@@ -23,6 +23,7 @@
     %p
       %strong Venue:
       #{@location.name}
+    = hidden_field_tag :venue_id, @location.id
     %p
       %strong Time:
       #{@event_suggestion.start_time.strftime("%I:%M %p")}
@@ -49,3 +50,5 @@
         - else
           %li #{invitee.email}
     = link_to 'Edit event', edit_event_suggestion_path(@event_suggestion), class: 'btn btn-primary' if can? :update, @event_suggestion
+  .col-xs-12.col-sm-6.col-md-6
+    %section#map-canvas-final
