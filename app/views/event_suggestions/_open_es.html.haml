@@ -1,5 +1,5 @@
 .row#event_suggestion_heading
-  .col-xs-12.col-sm-8.col-md-9.text-center
+  .col-xs-12.col-sm-6.col-md-7.text-center
     -if @event_suggestion.name
       - if @event_suggestion.category == "dinner"
         %h1#event_title
@@ -18,10 +18,11 @@
         %h1#event_title
           %span.glyphicon.glyphicon-cutlery.list_icon
           Drinks with #{@event_suggestion.host.name || @event_suggestion.host.email}
-  .col-xs-12.col-sm-4.col-md-3.text-center
+  .col-xs-12.col-sm-6.col-md-5.text-center
     .btn-group#event_settings_group
       - if can? :update, @event_suggestion
         = link_to 'Edit event', edit_event_suggestion_path(@event_suggestion), class: 'btn btn-primary'
+        = link_to 'Delete event', event_suggestion_path(@event_suggestion), method: :delete, data: {confirm: "Are you sure you want to delete this event?"}, class: 'btn btn-primary' 
         = link_to 'Finalise event', finalise_event_suggestion_path(@event_suggestion), class: 'btn btn-primary'
 .row
   .col-xs-12.col-sm-12.col-md-12#invitee_index 

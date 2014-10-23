@@ -168,7 +168,7 @@ class EventSuggestionsController < ApplicationController
     @event_suggestion.destroy
 
     respond_to do |format|
-      format.html { redirect_to event_suggestions_url }
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end
