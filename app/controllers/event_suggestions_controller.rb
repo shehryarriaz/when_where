@@ -100,11 +100,6 @@ class EventSuggestionsController < ApplicationController
     @event_suggestion = EventSuggestion.new(params[:event_suggestion])
     @event_suggestion.host = current_user
     @users_without_current_user = User.find(:all, :conditions => ["id != ?", current_user.id])
-    if @event_suggestion.category == 'dinner'
-      @event_suggestion.name = "Dinner with #{@event_suggestion.host.name || @event_suggestion.host.email}"
-    else @event_suggestion.category == 'drinks'
-      @event_suggestion.name = "Drinks with #{@event_suggestion.host.name || @event_suggestion.host.email}"
-    end
 
     respond_to do |format|
       if @event_suggestion.save

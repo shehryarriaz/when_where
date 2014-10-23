@@ -1,13 +1,23 @@
 .row#event_suggestion_heading
   .col-xs-12.col-sm-8.col-md-9.text-center
-    - if @event_suggestion.category == "dinner"
-      %h1#event_title
-        %span.glyphicon.glyphicon-cutlery.list_icon
-        #{@event_suggestion.name}
+    -if @event_suggestion.name
+      - if @event_suggestion.category == "dinner"
+        %h1#event_title
+          %span.glyphicon.glyphicon-cutlery.list_icon
+          #{@event_suggestion.name}
+      - else
+        %h1#event_title
+          %span.glyphicon.glyphicon-glass.list_icon
+          #{@event_suggestion.name}
     - else
-      %h1#event_title
-        %span.glyphicon.glyphicon-glass.list_icon
-        #{@event_suggestion.name}
+      - if @event_suggestion.category == 'dinner'
+        %h1#event_title
+          %span.glyphicon.glyphicon-cutlery.list_icon
+          Dinner with #{@event_suggestion.host.name || @event_suggestion.host.email}
+      - else @event_suggestion.category == 'drinks'
+        %h1#event_title
+          %span.glyphicon.glyphicon-cutlery.list_icon
+          Drinks with #{@event_suggestion.host.name || @event_suggestion.host.email}
   .col-xs-12.col-sm-4.col-md-3.text-center
     .btn-group#event_settings_group
       - if can? :update, @event_suggestion
