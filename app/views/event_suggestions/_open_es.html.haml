@@ -50,9 +50,9 @@
             %li= msg
         = hidden_field_tag :event_suggestion_id, @event_suggestion.id
         .form-group
-          = text_field_tag :name, nil, class: "form-control", placeholder: "Venue name"
+          = text_field_tag :name, nil, class: "form-control", placeholder: "e.g. My house or venue name"
         .form-group
-          = text_field_tag :address, nil, id: "autocomplete", class: "form-control", placeholder: "Address"
+          = text_field_tag :address, nil, id: "autocomplete", class: "form-control", placeholder: "Venue name or address"
         .form-group
           = text_field_tag :description, nil, class: "form-control", placeholder: "Description"
         = submit_tag "Add venue", class: "btn btn-primary btn-block"
