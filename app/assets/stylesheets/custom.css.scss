@@ -99,6 +99,16 @@ a#home_signup_button {
   margin-bottom: 20px;
 }
 
+#event_title {
+  float: left;
+  span {
+    margin-right: 5px;
+  }
+  .list_icon {
+    float: none;
+  }
+}
+
 #when_where_content {
   margin-bottom: 25px;
 }

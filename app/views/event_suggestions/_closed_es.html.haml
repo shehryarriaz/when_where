@@ -8,15 +8,20 @@
       %h2#event_title
         %span.glyphicon.glyphicon-glass.list_icon
         #{@event_suggestion.name}
+.row
+  .col-xs-12.col-sm-6.col-md-6
     %h2
       %small Hosted by: #{@event_suggestion.host.name || @event_suggestion.host.email}
-    %br
-    %p.lead #{@event_suggestion.description}
 
-    %h3.text-success Status: #{@event_suggestion.status}
+    %h3.text-success
+      Status: 
+      - if @event_suggestion.status == "closed"
+        finalised
+      - else
+        open
     %br
     %p
-      %strong Location:
+      %strong Venue:
       #{@event_suggestion.location}
     %p
       %strong Time:
@@ -30,9 +35,9 @@
       %ul.list-unstyled
         - @chosen_event.users.each do |user|
           - if user.name
-            %li #{link_to user.name, user_path(user)}
+            %li #{user.name}
           - else
-            %li #{link_to user.email, user_path(user)}
+            %li #{user.email}
     - else
       %p Convince more people next time!
 
@@ -40,7 +45,7 @@
     %ul.list-unstyled
       - @event_suggestion.invitees.each do |invitee|
         - if invitee.name
-          %li #{link_to invitee.name, user_path(invitee)}
+          %li #{invitee.name}
         - else
-          %li #{link_to invitee.email, user_path(invitee)}
+          %li #{invitee.email}
     = link_to 'Edit event', edit_event_suggestion_path(@event_suggestion), class: 'btn btn-primary' if can? :update, @event_suggestion
