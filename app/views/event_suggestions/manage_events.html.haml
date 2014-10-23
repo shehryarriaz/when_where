@@ -9,7 +9,7 @@
       .btn-group-vertical.event_list
         - @events_as_host.each do |event|
           - if event.category == "dinner"
-            = link_to event, class: "btn btn-default btn-lg" do
+            = link_to event, class: "btn btn-default btn-lg" + (" finalised-link" if event.status == "closed").to_s do
               %span.glyphicon.glyphicon-cutlery.list_icon
               .event_suggestion_name
                 - if event.name
@@ -22,7 +22,7 @@
                 - else
                   #{event.start_date.strftime("%d")} - #{event.end_date.strftime("%d %b")}
           - else
-            = link_to event, class: "btn btn-default btn-lg" do
+            = link_to event, class: "btn btn-default btn-lg" + (" finalised-link" if event.status == "closed").to_s do
               %span.glyphicon.glyphicon-glass.list_icon
               .event_suggestion_name
                 - if event.name

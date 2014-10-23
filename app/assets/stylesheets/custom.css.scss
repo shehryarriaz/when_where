@@ -224,13 +224,16 @@ input.form-control.edit_event_time {
   margin: 0 auto;
 }
 
+.status_finalised {
+  color: #418AC8;
+}
 
+.finalised-link {
+  background-color: #418AC8;
+  color: #FFFFFF;
+}
 
-
-
-
-
-
-
-
-
+.finalised-link:hover {
+  background-color: #5BA4E2;
+  color: #FFFFFF;
+}
