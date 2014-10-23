@@ -6,6 +6,7 @@ class Ability
     if user.role? :admin
       can :manage, :all
     elsif user.role? :basic_user
+      can :read, User, :attributes => :name
       can :show, User, id: user.id
       can :create, EventSuggestion
       can :read, EventSuggestion do |event_suggestion|

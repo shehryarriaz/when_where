@@ -9,7 +9,11 @@ WhenWhere::Application.routes.draw do
   devise_scope :user do
     get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
-  resources :users
+  resources :users do
+    collection do
+      get :admin_index
+    end
+  end
   resources :event_venues do
     member do
       put 'vote/:direction', to: 'event_venues#vote', as: 'vote'
