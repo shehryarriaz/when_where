@@ -89,6 +89,12 @@ a#home_signup_button {
 #event_suggestion_heading {
   #event_title {
     float: left;
+    span {
+      margin-right: 5px;
+    }
+    .list_icon {
+      float: none;
+    }
   }
   #event_settings_group {
     margin-top: 20px;
